@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { EASE_OUT_EXPO } from "@/lib/constants";
 
-const bootLines = [
+const BOOT_LINES = [
   { text: "NEXUS OS v2.0.25 — Initializing...", delay: 0 },
   { text: "[OK] Loading system modules", delay: 300 },
   { text: "[OK] Mounting creative filesystem", delay: 600 },
@@ -14,34 +15,41 @@ const bootLines = [
   { text: "", delay: 2100 },
   { text: "Welcome, visitor.", delay: 2300 },
   { text: "System ready. ✓", delay: 2600 },
-];
+] as const;
 
-export default function Preloader({
-  onComplete,
-}: {
-  onComplete: () => void;
-}) {
-  const [visibleLines, setVisibleLines] = useState<number>(0);
+function getLineColor(text: string): string {
+  if (text.includes("[OK]")) return "text-nexus-green";
+  if (text.includes("Welcome")) return "text-nexus-accent font-bold text-base";
+  if (text.includes("System ready")) return "text-nexus-accent font-bold";
+  return "text-nexus-muted";
+}
+
+export default function Preloader({ onComplete }: { onComplete: () => void }) {
+  const [visibleLines, setVisibleLines] = useState(0);
   const [progress, setProgress] = useState(0);
   const [phase, setPhase] = useState<"boot" | "logo" | "done">("boot");
 
   useEffect(() => {
-    // Show boot lines one by one
-    bootLines.forEach((line, index) => {
-      setTimeout(() => {
-        setVisibleLines(index + 1);
-        setProgress(((index + 1) / bootLines.length) * 100);
-      }, line.delay);
+    const timers: NodeJS.Timeout[] = [];
+
+    BOOT_LINES.forEach((line, index) => {
+      timers.push(
+        setTimeout(() => {
+          setVisibleLines(index + 1);
+          setProgress(((index + 1) / BOOT_LINES.length) * 100);
+        }, line.delay),
+      );
     });
 
-    // Transition to logo phase
-    setTimeout(() => setPhase("logo"), 3000);
+    timers.push(setTimeout(() => setPhase("logo"), 3000));
+    timers.push(
+      setTimeout(() => {
+        setPhase("done");
+        setTimeout(onComplete, 600);
+      }, 4200),
+    );
 
-    // Complete preloader
-    setTimeout(() => {
-      setPhase("done");
-      setTimeout(onComplete, 600);
-    }, 4200);
+    return () => timers.forEach(clearTimeout);
   }, [onComplete]);
 
   return (
@@ -50,20 +58,17 @@ export default function Preloader({
         <motion.div
           className="fixed inset-0 z-[99999] bg-nexus-bg flex items-center justify-center"
           exit={{ opacity: 0, scale: 1.1 }}
-          transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.6, ease: EASE_OUT_EXPO }}
         >
-          {/* Scanline effect */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-            {Array.from({ length: 100 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-full h-[1px] bg-white"
-                style={{ marginBottom: "4px" }}
-              />
-            ))}
-          </div>
+          {/* Scanlines via CSS gradient instead of 100 divs */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.03]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(0deg, white 0px, white 1px, transparent 1px, transparent 5px)",
+            }}
+          />
 
-          {/* Grid background */}
           <div className="absolute inset-0 grid-bg opacity-30" />
 
           <AnimatePresence mode="wait">
@@ -74,7 +79,6 @@ export default function Preloader({
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Terminal window */}
                 <div className="glass rounded-xl overflow-hidden">
                   {/* Terminal header */}
                   <div className="flex items-center gap-2 px-4 py-3 border-b border-nexus-border">
@@ -88,21 +92,13 @@ export default function Preloader({
 
                   {/* Terminal body */}
                   <div className="p-6 font-mono text-sm space-y-1 min-h-[300px]">
-                    {bootLines.slice(0, visibleLines).map((line, index) => (
+                    {BOOT_LINES.slice(0, visibleLines).map((line, index) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.2 }}
-                        className={`${
-                          line.text.includes("[OK]")
-                            ? "text-nexus-green"
-                            : line.text.includes("Welcome")
-                            ? "text-nexus-accent font-bold text-base"
-                            : line.text.includes("System ready")
-                            ? "text-nexus-accent font-bold"
-                            : "text-nexus-muted"
-                        }`}
+                        className={getLineColor(line.text)}
                       >
                         {line.text}
                         {index === visibleLines - 1 && (
@@ -142,17 +138,12 @@ export default function Preloader({
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.2 }}
-                transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                transition={{ duration: 0.5, ease: EASE_OUT_EXPO }}
               >
-                {/* Animated logo */}
                 <motion.div
                   className="relative w-24 h-24"
                   animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 2,
-                    ease: "linear",
-                    repeat: Infinity,
-                  }}
+                  transition={{ duration: 2, ease: "linear", repeat: Infinity }}
                 >
                   <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-nexus-accent border-r-nexus-accentAlt" />
                   <div className="absolute inset-2 rounded-full border-2 border-transparent border-b-nexus-pink border-l-nexus-green" />
@@ -160,11 +151,7 @@ export default function Preloader({
                     <motion.span
                       className="text-2xl font-bold gradient-text font-display"
                       animate={{ rotate: -360 }}
-                      transition={{
-                        duration: 2,
-                        ease: "linear",
-                        repeat: Infinity,
-                      }}
+                      transition={{ duration: 2, ease: "linear", repeat: Infinity }}
                     >
                       S
                     </motion.span>
@@ -184,18 +171,10 @@ export default function Preloader({
           </AnimatePresence>
 
           {/* Corner decorations */}
-          <div className="absolute top-6 left-6 text-xs font-mono text-nexus-muted/30">
-            NEXUS//SYS
-          </div>
-          <div className="absolute top-6 right-6 text-xs font-mono text-nexus-muted/30">
-            v2.0.25
-          </div>
-          <div className="absolute bottom-6 left-6 text-xs font-mono text-nexus-muted/30">
-            2024
-          </div>
-          <div className="absolute bottom-6 right-6 text-xs font-mono text-nexus-muted/30">
-            PORTFOLIO.EXE
-          </div>
+          <span className="absolute top-6 left-6 text-xs font-mono text-nexus-muted/30">NEXUS//SYS</span>
+          <span className="absolute top-6 right-6 text-xs font-mono text-nexus-muted/30">v2.0.25</span>
+          <span className="absolute bottom-6 left-6 text-xs font-mono text-nexus-muted/30">2024</span>
+          <span className="absolute bottom-6 right-6 text-xs font-mono text-nexus-muted/30">PORTFOLIO.EXE</span>
         </motion.div>
       )}
     </AnimatePresence>

@@ -1,8 +1,8 @@
-// components/StaggerReveal.tsx
 "use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { EASE_OUT_EXPO } from "@/lib/constants";
 
 interface StaggerRevealProps {
   children: React.ReactNode;
@@ -48,7 +48,7 @@ export default function StaggerReveal({
         transition={{
           duration: 0.8,
           delay,
-          ease: [0.76, 0, 0.24, 1],
+          ease: EASE_OUT_EXPO,
         }}
       >
         {children}

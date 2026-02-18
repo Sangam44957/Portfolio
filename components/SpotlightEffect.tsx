@@ -1,28 +1,22 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { isMobile } from "@/lib/utils";
+import { Z_INDEX } from "@/lib/constants";
 
 export default function SpotlightEffect() {
   const spotlightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (isMobile) return;
+    if (isMobile()) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!spotlightRef.current) return;
-      spotlightRef.current.style.background = `
-        radial-gradient(
-          600px circle at ${e.clientX}px ${e.clientY}px,
-          rgba(0, 240, 255, 0.04),
-          transparent 40%
-        )
-      `;
+      spotlightRef.current.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(0,240,255,0.04), transparent 40%)`;
     };
 
     const handleMouseLeave = () => {
-      if (!spotlightRef.current) return;
-      spotlightRef.current.style.background = "transparent";
+      if (spotlightRef.current) spotlightRef.current.style.background = "transparent";
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -37,7 +31,8 @@ export default function SpotlightEffect() {
   return (
     <div
       ref={spotlightRef}
-      className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
+      className="pointer-events-none fixed inset-0 transition-opacity duration-300"
+      style={{ zIndex: Z_INDEX.spotlight }}
     />
   );
 }

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
-import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { SoundProvider } from "@/contexts/SoundContext";
+import { TOAST_STYLE } from "@/lib/constants";
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Sangam Mehta | Backend Developer Portfolio",
   description:
-    "Backend developer specializing in Node.js, Express.js, and database optimization. Building scalable APIs and microservices. 250+ DSA problems solved.",
+    "Backend developer specializing in Node.js, Express.js, and database optimization. Building scalable APIs and microservices.",
   keywords: [
     "backend developer",
     "Node.js developer",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sangam Mehta | Backend Developer",
     description:
-      "Explore the portfolio of Sangam Mehta — a backend developer specializing in Node.js, Express.js, and scalable API development.",
+      "Explore the portfolio of Sangam Mehta — backend developer specializing in scalable API development.",
     type: "website",
     url: "https://sangammehta.dev",
     images: [
@@ -54,13 +55,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sangam Mehta | Backend Developer",
     description:
-      "Explore the portfolio of Sangam Mehta — a backend developer specializing in scalable APIs.",
+      "Explore the portfolio of Sangam Mehta — backend developer specializing in scalable APIs.",
     images: ["/og-image.jpg"],
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -76,7 +74,7 @@ export default function RootLayout({
       <body className="font-sans antialiased noise-overlay">
         <SoundProvider>
           {children}
-          <Toaster position="bottom-right" />
+          <Toaster position="bottom-right" toastOptions={TOAST_STYLE} />
         </SoundProvider>
       </body>
     </html>

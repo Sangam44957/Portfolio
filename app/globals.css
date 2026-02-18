@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════
-   NEXUS PORTFOLIO — GLOBAL STYLES
+   NEXUS PORTFOLIO — CSS CUSTOM PROPERTIES
    ═══════════════════════════════════════ */
 
 :root {
@@ -11,9 +11,26 @@
   --nexus-accent-alt: #7b61ff;
   --nexus-accent-light: #0099cc;
   --nexus-bg: #050505;
+  --nexus-surface: #0a0a0a;
+  --nexus-card: #111111;
+  --nexus-border: #1a1a1a;
+  --nexus-text: #e5e5e5;
+  --nexus-muted: #737373;
   --nexus-pink: #ff006e;
   --nexus-green: #00ff88;
-  --cursor-size: 20px;
+}
+
+html.light {
+  --nexus-bg: #f8f9fc;
+  --nexus-surface: #eef0f5;
+  --nexus-card: #ffffff;
+  --nexus-border: rgba(0, 0, 0, 0.06);
+  --nexus-text: #1a1a2e;
+  --nexus-muted: #6b7280;
+  --nexus-accent-light: #0099cc;
+  --nexus-pink: #d4005c;
+  --nexus-green: #00a65a;
+  color-scheme: light;
 }
 
 /* ── Smooth Scroll ── */
@@ -41,9 +58,15 @@ html.lenis body {
 /* ── Base ── */
 body {
   background: var(--nexus-bg);
-  color: #e5e5e5;
+  color: var(--nexus-text);
   overflow-x: hidden;
   cursor: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
 }
 
 ::selection {
@@ -51,12 +74,18 @@ body {
   color: #fff;
 }
 
+html.light ::selection {
+  background: rgba(0, 153, 204, 0.15);
+  color: #1a1a2e;
+}
+
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--nexus-surface);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -64,7 +93,7 @@ body {
   border-radius: 10px;
 }
 
-/* ── Glassmorphism Utility ── */
+/* ── Glassmorphism ── */
 .glass {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(20px);
@@ -79,9 +108,25 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+html.light .glass {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+html.light .glass-strong {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.03);
+}
+
 /* ── Gradient Text ── */
 .gradient-text {
-  background: linear-gradient(135deg, var(--nexus-accent) 0%, #7b61ff 50%, #ff006e 100%);
+  background: linear-gradient(135deg, var(--nexus-accent) 0%, var(--nexus-accent-alt) 50%, var(--nexus-pink) 100%);
   background-size: 200% 200%;
   animation: gradientShift 4s ease infinite;
   -webkit-background-clip: text;
@@ -90,26 +135,29 @@ body {
 }
 
 .gradient-text-static {
-  background: linear-gradient(135deg, var(--nexus-accent), #7b61ff);
+  background: linear-gradient(135deg, var(--nexus-accent), var(--nexus-accent-alt));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* ── Glow Effects ── */
+/* ── Glow ── */
 .neon-glow {
-  text-shadow:
-    0 0 7px var(--nexus-accent),
-    0 0 10px var(--nexus-accent),
-    0 0 21px var(--nexus-accent),
-    0 0 42px var(--nexus-accent);
+  text-shadow: 0 0 7px var(--nexus-accent), 0 0 10px var(--nexus-accent),
+    0 0 21px var(--nexus-accent), 0 0 42px var(--nexus-accent);
+}
+
+html.light .neon-glow {
+  text-shadow: 0 0 7px rgba(0, 153, 204, 0.3), 0 0 10px rgba(0, 153, 204, 0.2);
 }
 
 .box-glow {
-  box-shadow:
-    0 0 15px rgba(0, 240, 255, 0.15),
-    0 0 30px rgba(0, 240, 255, 0.05),
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15), 0 0 30px rgba(0, 240, 255, 0.05),
     inset 0 0 15px rgba(0, 240, 255, 0.05);
+}
+
+html.light .box-glow {
+  box-shadow: 0 0 15px rgba(0, 153, 204, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 /* ── Animated Border ── */
@@ -122,13 +170,7 @@ body {
   content: "";
   position: absolute;
   inset: -2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--nexus-accent),
-    var(--nexus-accent-alt),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, var(--nexus-accent), var(--nexus-accent-alt), transparent);
   background-size: 300% 300%;
   animation: borderFlow 3s linear infinite;
   z-index: -1;
@@ -139,34 +181,39 @@ body {
   content: "";
   position: absolute;
   inset: 1px;
-  background: #0a0a0a;
+  background: var(--nexus-surface);
   border-radius: inherit;
   z-index: -1;
 }
 
 /* ── Grid Background ── */
 .grid-bg {
-  background-image:
-    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
-/* ── Noise Texture Overlay ── */
+html.light .grid-bg {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+}
+
+/* ── Noise Overlay ── */
 .noise-overlay::after {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9999;
   opacity: 0.4;
 }
 
-/* ── Terminal Styles ── */
+html.light .noise-overlay::after {
+  opacity: 0.08;
+}
+
+/* ── Terminal ── */
 .terminal-prompt::before {
   content: "❯ ";
   color: var(--nexus-accent);
@@ -183,46 +230,22 @@ body {
   vertical-align: text-bottom;
 }
 
-/* ── Marquee ── */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ── Marquee Mask ── */
 .marquee-container {
-  mask-image: linear-gradient(
-    90deg,
-    transparent,
-    #fff 15%,
-    #fff 85%,
-    transparent
-  );
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent,
-    #fff 15%,
-    #fff 85%,
-    transparent
-  );
+  mask-image: linear-gradient(90deg, transparent, #fff 15%, #fff 85%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #fff 15%, #fff 85%, transparent);
 }
 
-/* ── Mobile cursor restore ── */
-@media (max-width: 768px) {
-  body {
-    cursor: auto;
-  }
-}
-
-/* ── Magnetic Button Hover ── */
+/* ── Magnetic Button ── */
 .magnetic-btn {
   transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* ── Page Transition ── */
-.page-transition-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--nexus-bg);
-  z-index: 99999;
-  pointer-events: none;
-}
-
-/* ── Glitch Effect ── */
+/* ── Glitch ── */
 .glitch-text {
   position: relative;
 }
@@ -231,10 +254,7 @@ body {
 .glitch-text::after {
   content: attr(data-text);
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
 }
 
 .glitch-text::before {
@@ -268,7 +288,7 @@ body {
   border: 1px solid rgba(0, 240, 255, 0.2);
   border-radius: 8px;
   font-size: 12px;
-  color: #e5e5e5;
+  color: var(--nexus-text);
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
@@ -278,286 +298,14 @@ body {
 .tooltip:hover::after {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
-}/* ═══════════════════════════════════════
-   LIGHT MODE — PREMIUM DESIGN
-   ═══════════════════════════════════════ */
-
-html.light {
-  color-scheme: light;
 }
 
-html.light body {
-  background: #f8f9fc;
-  color: #1a1a2e;
-}
-
-/* ── Glass in Light Mode ── */
-html.light .glass {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.04),
-    0 4px 12px rgba(0, 0, 0, 0.02);
-}
-
-html.light .glass-strong {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(40px) saturate(200%);
-  -webkit-backdrop-filter: blur(40px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.04),
-    0 8px 24px rgba(0, 0, 0, 0.03);
-}
-
-/* ── Text Colors ── */
-html.light .text-nexus-text {
-  color: #1a1a2e;
-}
-
-html.light .text-nexus-muted {
-  color: #6b7280;
-}
-
-/* ── Backgrounds ── */
-html.light .bg-nexus-bg {
-  background-color: #f8f9fc;
-}
-
-html.light .bg-nexus-surface {
-  background-color: #eef0f5;
-}
-
-html.light .bg-nexus-card {
-  background-color: #ffffff;
-}
-
-/* Accent colors stay vivid but slightly adjusted */
-html.light .text-nexus-accent {
-  color: var(--nexus-accent-light, #0099cc);
-}
-
-html.light .text-nexus-green {
-  color: #00a65a;
-}
-
-html.light .text-nexus-pink {
-  color: #d4005c;
-}
-
-/* ── Borders ── */
-html.light .border-nexus-border {
-  border-color: rgba(0, 0, 0, 0.06);
-}
-
-html.light .border-nexus-border\/20 {
-  border-color: rgba(0, 0, 0, 0.04);
-}
-
-html.light .border-nexus-border\/30 {
-  border-color: rgba(0, 0, 0, 0.05);
-}
-
-/* ── Gradient Text stays vibrant ── */
-html.light .gradient-text {
-  background: linear-gradient(135deg, var(--nexus-accent-light, #0099cc) 0%, #5a3fd6 50%, #d4005c 100%);
-  background-size: 200% 200%;
-  animation: gradientShift 4s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-html.light .gradient-text-static {
-  background: linear-gradient(135deg, var(--nexus-accent-light, #0099cc), #5a3fd6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── Grid Background ── */
-html.light .grid-bg {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-/* ── Scrollbar ── */
-html.light ::-webkit-scrollbar-track {
-  background: #eef0f5;
-}
-
-html.light ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #0099cc, #5a3fd6);
-}
-
-/* ── Selection ── */
-html.light ::selection {
-  background: rgba(0, 153, 204, 0.15);
-  color: #1a1a2e;
-}
-
-/* ── Glow Effects — Softer in Light ── */
-html.light .neon-glow {
-  text-shadow:
-    0 0 7px rgba(0, 153, 204, 0.3),
-    0 0 10px rgba(0, 153, 204, 0.2);
-}
-
-html.light .box-glow {
-  box-shadow:
-    0 0 15px rgba(0, 153, 204, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.04);
-}
-
-/* ── Noise Overlay — Much lighter ── */
-html.light .noise-overlay::after {
-  opacity: 0.08;
-}
-
-/* ── Surface backgrounds with opacity ── */
-html.light .bg-nexus-surface\/50 {
-  background-color: rgba(238, 240, 245, 0.5);
-}
-
-html.light .bg-nexus-bg\/50 {
-  background-color: rgba(248, 249, 252, 0.5);
-}
-
-html.light .bg-nexus-bg\/80 {
-  background-color: rgba(248, 249, 252, 0.8);
-}
-
-html.light .bg-nexus-bg\/90 {
-  background-color: rgba(248, 249, 252, 0.9);
-}
-
-html.light .bg-nexus-bg\/95 {
-  background-color: rgba(248, 249, 252, 0.95);
-}
-
-/* ── Card hover states ── */
-html.light .hover\:bg-nexus-card:hover {
-  background-color: #ffffff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-}
-
-/* ── Terminal in Light Mode ── */
-html.light .terminal-cursor {
-  background: #0099cc;
-}
-
-/* ── Animated Border ── */
-html.light .animated-border::after {
-  background: #f8f9fc;
-}
-
-/* ── Input Fields ── */
-html.light input,
-html.light textarea {
-  color: #1a1a2e;
-}
-
-html.light input::placeholder,
-html.light textarea::placeholder {
-  color: rgba(107, 114, 128, 0.5);
-}
-
-/* ── Specific accent opacity overrides ── */
-html.light .bg-nexus-accent\/10 {
-  background-color: rgba(0, 153, 204, 0.08);
-}
-
-html.light .bg-nexus-accent\/20 {
-  background-color: rgba(0, 153, 204, 0.12);
-}
-
-html.light .bg-nexus-accentAlt\/10 {
-  background-color: rgba(90, 63, 214, 0.08);
-}
-
-html.light .bg-nexus-pink\/10 {
-  background-color: rgba(212, 0, 92, 0.08);
-}
-
-html.light .border-nexus-accent\/20 {
-  border-color: rgba(0, 153, 204, 0.15);
-}
-
-html.light .border-nexus-accent\/30 {
-  border-color: rgba(0, 153, 204, 0.2);
-}
-
-/* ── GitHub Heatmap Light ── */
-html.light .bg-nexus-border\/20 {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-html.light .bg-nexus-border\/30 {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-/* ── Particle Field — reduce opacity ── */
+/* ── Light Mode: Particle canvas opacity ── */
 html.light canvas {
   opacity: 0.4;
 }
 
-/* ── Hero radial gradient ── */
-html.light [class*="radial-gradient"] {
-  background: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    #f8f9fc 70%
-  ) !important;
-}
-
-/* ── Fix Mix Blend Mode for cursor ── */
-html.light .mix-blend-difference {
-  mix-blend-mode: normal;
-}
-
-html.light .mix-blend-difference > div {
-  background: #1a1a2e !important;
-}
-
-/* ── Red/Error colors ── */
-html.light .text-red-400 {
-  color: #dc2626;
-}
-
-/* ── Section decorative borders ── */
-html.light .border-t {
-  border-color: rgba(0, 0, 0, 0.04);
-}
-
-html.light .border-b {
-  border-color: rgba(0, 0, 0, 0.04);
-}
-
-/* ── Via gradient dividers ── */
-html.light .via-nexus-border\/30 {
-  --tw-gradient-via: rgba(0, 0, 0, 0.06);
-}
-
-/* ── Sound & Theme toggle buttons in light mode ── */
-html.light .fixed.right-6 {
-  background: rgba(255, 255, 255, 0.7) !important;
-  border: 1px solid rgba(0, 0, 0, 0.06) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-/* ── Mobile nav in light mode ── */
-@media (max-width: 768px) {
-  html.light .fixed.bottom-0 .glass-strong {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(0, 0, 0, 0.06);
-  }
-}
-
-/* ── Smooth transition for all theme changes ── */
+/* ── Smooth theme transitions (light only) ── */
 html.light *,
 html.light *::before,
 html.light *::after {
@@ -566,7 +314,6 @@ html.light *::after {
   transition-timing-function: ease;
 }
 
-/* Exclude elements that have their own animations */
 html.light [class*="animate-"],
 html.light [class*="transition-"],
 html.light canvas,
