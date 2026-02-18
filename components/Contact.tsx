@@ -5,111 +5,54 @@ import { motion, useInView } from "framer-motion";
 import SectionWrapper from "./SectionWrapper";
 import MagneticButton from "./MagneticButton";
 import { personalInfo } from "@/data/portfolio";
-import toast from "react-hot-toast";
+import { EASE_OUT_EXPO, TOAST_STYLE } from "@/lib/constants";
 import { useConfetti } from "./Confetti";
+import toast from "react-hot-toast";
 import {
-  FiMail,
-  FiMapPin,
-  FiPhone,
-  FiSend,
-  FiCopy,
-  FiCheck,
-  FiGithub,
-  FiLinkedin,
-  FiTwitter,
-  FiInstagram,
+  FiMail, FiMapPin, FiPhone, FiSend, FiCopy, FiCheck,
+  FiGithub, FiLinkedin, FiTwitter, FiInstagram,
 } from "react-icons/fi";
+
+const SOCIALS = [
+  { icon: FiGithub, url: personalInfo.socials.github, label: "GitHub", color: "#ffffff" },
+  { icon: FiLinkedin, url: personalInfo.socials.linkedin, label: "LinkedIn", color: "#0A66C2" },
+  { icon: FiTwitter, url: personalInfo.socials.twitter, label: "Twitter", color: "#1DA1F2" },
+  { icon: FiInstagram, url: personalInfo.socials.instagram, label: "Instagram", color: "#E4405F" },
+] as const;
+
+const INITIAL_FORM = { name: "", email: "", subject: "", message: "" };
 
 export default function Contact() {
   const { fireConfetti } = useConfetti();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // TODO: Replace with actual API call
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    // 🎉 Fire confetti!
     fireConfetti();
-
-    toast.success("Message sent successfully! I'll get back to you soon.", {
-      style: {
-        background: "#111",
-        color: "#e5e5e5",
-        border: "1px solid rgba(0, 240, 255, 0.2)",
-      },
-      iconTheme: {
-        primary: "#00f0ff",
-        secondary: "#111",
-      },
-    });
-
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    toast.success("Message sent successfully! I'll get back to you soon.", TOAST_STYLE);
+    setFormData(INITIAL_FORM);
     setIsSubmitting(false);
   };
 
   const copyEmail = () => {
     navigator.clipboard.writeText(personalInfo.email);
     setEmailCopied(true);
-    toast.success("Email copied to clipboard!", {
-      style: {
-        background: "#111",
-        color: "#e5e5e5",
-        border: "1px solid rgba(0, 240, 255, 0.2)",
-      },
-      iconTheme: {
-        primary: "#00f0ff",
-        secondary: "#111",
-      },
-    });
+    toast.success("Email copied to clipboard!", TOAST_STYLE);
     setTimeout(() => setEmailCopied(false), 2000);
   };
-
-  const socials = [
-    {
-      icon: FiGithub,
-      url: personalInfo.socials.github,
-      label: "GitHub",
-      color: "#ffffff",
-    },
-    {
-      icon: FiLinkedin,
-      url: personalInfo.socials.linkedin,
-      label: "LinkedIn",
-      color: "#0A66C2",
-    },
-    {
-      icon: FiTwitter,
-      url: personalInfo.socials.twitter,
-      label: "Twitter",
-      color: "#1DA1F2",
-    },
-    {
-      icon: FiInstagram,
-      url: personalInfo.socials.instagram,
-      label: "Instagram",
-      color: "#E4405F",
-    },
-  ];
 
   return (
     <SectionWrapper
@@ -119,31 +62,26 @@ export default function Contact() {
       number="06"
     >
       <div ref={ref} className="grid lg:grid-cols-2 gap-16">
-        {/* Left Side — Info & Socials */}
+        {/* Left — Info */}
         <motion.div
           className="space-y-8"
           initial={{ opacity: 0, x: -50 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.8, ease: EASE_OUT_EXPO }}
         >
-          {/* Big headline */}
           <div>
             <h3 className="text-3xl md:text-4xl font-display font-bold text-nexus-text mb-4">
               Let&apos;s build something{" "}
-              <span className="gradient-text-static">extraordinary</span>{" "}
-              together.
+              <span className="gradient-text-static">extraordinary</span> together.
             </h3>
             <p className="text-nexus-muted leading-relaxed">
-              I&apos;m always open to discussing new projects, creative ideas, or
-              opportunities to be part of your vision. Whether you&apos;re a startup
-              looking for a technical co-founder or a company seeking a developer,
-              let&apos;s talk!
+              I&apos;m always open to discussing new projects, creative ideas, or opportunities
+              to be part of your vision.
             </p>
           </div>
 
-          {/* Contact Info Cards */}
+          {/* Contact cards */}
           <div className="space-y-4">
-            {/* Email — with copy */}
             <motion.div
               className="glass rounded-xl p-4 flex items-center justify-between group hover:border-nexus-accent/20 transition-all cursor-pointer"
               onClick={copyEmail}
@@ -155,27 +93,18 @@ export default function Contact() {
                   <FiMail className="w-5 h-5 text-nexus-accent" />
                 </div>
                 <div>
-                  <div className="text-xs text-nexus-muted font-mono mb-0.5">
-                    EMAIL
-                  </div>
-                  <div className="text-sm text-nexus-text">
-                    {personalInfo.email}
-                  </div>
+                  <div className="text-xs text-nexus-muted font-mono mb-0.5">EMAIL</div>
+                  <div className="text-sm text-nexus-text">{personalInfo.email}</div>
                 </div>
               </div>
               <motion.div
                 className="text-nexus-muted group-hover:text-nexus-accent transition-colors"
                 animate={{ scale: emailCopied ? [1, 1.3, 1] : 1 }}
               >
-                {emailCopied ? (
-                  <FiCheck className="w-4 h-4 text-nexus-green" />
-                ) : (
-                  <FiCopy className="w-4 h-4" />
-                )}
+                {emailCopied ? <FiCheck className="w-4 h-4 text-nexus-green" /> : <FiCopy className="w-4 h-4" />}
               </motion.div>
             </motion.div>
 
-            {/* Phone */}
             <motion.a
               href={`tel:${personalInfo.phone}`}
               className="glass rounded-xl p-4 flex items-center gap-4 group hover:border-nexus-accentAlt/20 transition-all block"
@@ -185,16 +114,11 @@ export default function Contact() {
                 <FiPhone className="w-5 h-5 text-nexus-accentAlt" />
               </div>
               <div>
-                <div className="text-xs text-nexus-muted font-mono mb-0.5">
-                  PHONE
-                </div>
-                <div className="text-sm text-nexus-text">
-                  {personalInfo.phone}
-                </div>
+                <div className="text-xs text-nexus-muted font-mono mb-0.5">PHONE</div>
+                <div className="text-sm text-nexus-text">{personalInfo.phone}</div>
               </div>
             </motion.a>
 
-            {/* Location */}
             <motion.div
               className="glass rounded-xl p-4 flex items-center gap-4 group hover:border-nexus-pink/20 transition-all"
               whileHover={{ x: 5 }}
@@ -203,61 +127,42 @@ export default function Contact() {
                 <FiMapPin className="w-5 h-5 text-nexus-pink" />
               </div>
               <div>
-                <div className="text-xs text-nexus-muted font-mono mb-0.5">
-                  LOCATION
-                </div>
-                <div className="text-sm text-nexus-text">
-                  {personalInfo.location}
-                </div>
+                <div className="text-xs text-nexus-muted font-mono mb-0.5">LOCATION</div>
+                <div className="text-sm text-nexus-text">{personalInfo.location}</div>
               </div>
             </motion.div>
           </div>
 
-          {/* Social Icons */}
+          {/* Social icons */}
           <div>
-            <p className="text-sm text-nexus-muted font-mono mb-4">
-              // Find me on
-            </p>
+            <p className="text-sm text-nexus-muted font-mono mb-4">// Find me on</p>
             <div className="flex gap-3">
-              {socials.map((social, index) => (
+              {SOCIALS.map((social, index) => (
                 <motion.a
                   key={social.label}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 rounded-xl glass flex items-center justify-center text-nexus-muted transition-all duration-300 group"
-                  whileHover={{
-                    scale: 1.1,
-                    y: -3,
-                  }}
+                  whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.6 + index * 0.1 }}
                   data-cursor-text={social.label}
-                  style={
-                    {
-                      "--hover-color": social.color,
-                    } as React.CSSProperties
-                  }
+                  style={{ "--hover-color": social.color } as React.CSSProperties}
                 >
-                  <social.icon
-                    className="w-5 h-5 group-hover:text-[var(--hover-color)] transition-colors"
-                  />
+                  <social.icon className="w-5 h-5 group-hover:text-[var(--hover-color)] transition-colors" />
                 </motion.a>
               ))}
             </div>
           </div>
 
-          {/* Availability status */}
+          {/* Availability */}
           <motion.div
             className="glass rounded-xl p-4 flex items-center gap-3"
             animate={{
-              borderColor: [
-                "rgba(0, 255, 136, 0.1)",
-                "rgba(0, 255, 136, 0.3)",
-                "rgba(0, 255, 136, 0.1)",
-              ],
+              borderColor: ["rgba(0,255,136,0.1)", "rgba(0,255,136,0.3)", "rgba(0,255,136,0.1)"],
             }}
             transition={{ duration: 3, repeat: Infinity }}
           >
@@ -266,55 +171,39 @@ export default function Contact() {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-nexus-green" />
             </span>
             <span className="text-sm text-nexus-green font-mono">
-              Currently available for freelance & full-time opportunities
+              Currently available for freelance &amp; full-time opportunities
             </span>
           </motion.div>
         </motion.div>
 
-        {/* Right Side — Contact Form */}
+        {/* Right — Form */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name & Email */}
             <div className="grid sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-xs font-mono text-nexus-muted uppercase tracking-wider">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  placeholder="John Doe"
-                  className="w-full px-4 py-3 glass rounded-xl bg-transparent text-nexus-text text-sm font-mono outline-none focus:border-nexus-accent/40 transition-colors placeholder:text-nexus-muted/30"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-mono text-nexus-muted uppercase tracking-wider">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  placeholder="john@example.com"
-                  className="w-full px-4 py-3 glass rounded-xl bg-transparent text-nexus-text text-sm font-mono outline-none focus:border-nexus-accent/40 transition-colors placeholder:text-nexus-muted/30"
-                />
-              </div>
+              {(["name", "email"] as const).map((field) => (
+                <div key={field} className="space-y-2">
+                  <label className="text-xs font-mono text-nexus-muted uppercase tracking-wider">
+                    {field}
+                  </label>
+                  <input
+                    type={field === "email" ? "email" : "text"}
+                    name={field}
+                    value={formData[field]}
+                    onChange={handleChange}
+                    required
+                    placeholder={field === "email" ? "john@example.com" : "John Doe"}
+                    className="w-full px-4 py-3 glass rounded-xl bg-transparent text-nexus-text text-sm font-mono outline-none focus:border-nexus-accent/40 transition-colors placeholder:text-nexus-muted/30"
+                  />
+                </div>
+              ))}
             </div>
 
-            {/* Subject */}
             <div className="space-y-2">
-              <label className="text-xs font-mono text-nexus-muted uppercase tracking-wider">
-                Subject
-              </label>
+              <label className="text-xs font-mono text-nexus-muted uppercase tracking-wider">Subject</label>
               <input
                 type="text"
                 name="subject"
@@ -326,11 +215,8 @@ export default function Contact() {
               />
             </div>
 
-            {/* Message */}
             <div className="space-y-2">
-              <label className="text-xs font-mono text-nexus-muted uppercase tracking-wider">
-                Message
-              </label>
+              <label className="text-xs font-mono text-nexus-muted uppercase tracking-wider">Message</label>
               <textarea
                 name="message"
                 value={formData.message}
@@ -342,22 +228,12 @@ export default function Contact() {
               />
             </div>
 
-            {/* Submit Button */}
-            <MagneticButton
-              onClick={() => {}}
-              variant="primary"
-              size="lg"
-              className="w-full justify-center"
-            >
+            <MagneticButton onClick={() => {}} variant="primary" size="lg" className="w-full justify-center">
               {isSubmitting ? (
                 <motion.div
                   className="w-5 h-5 border-2 border-nexus-accent/30 border-t-nexus-accent rounded-full"
                   animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 />
               ) : (
                 <>
@@ -367,7 +243,6 @@ export default function Contact() {
               )}
             </MagneticButton>
 
-            {/* Disclaimer */}
             <p className="text-xs text-nexus-muted/30 text-center font-mono">
               I typically respond within 24 hours. No spam, ever.
             </p>

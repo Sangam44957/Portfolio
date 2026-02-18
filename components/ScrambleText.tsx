@@ -1,4 +1,3 @@
-// components/ScrambleText.tsx
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -10,47 +9,48 @@ interface ScrambleTextProps {
   text: string;
   className?: string;
   scrambleSpeed?: number;
-  revealSpeed?: number;
 }
 
 export default function ScrambleText({
   text,
   className = "",
   scrambleSpeed = 30,
-  revealSpeed = 50,
 }: ScrambleTextProps) {
   const [displayText, setDisplayText] = useState(text);
   const [isHovering, setIsHovering] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const clearScramble = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
 
   const scramble = useCallback(() => {
     let iteration = 0;
-    const originalText = text;
-
-    // Clear any existing interval
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    clearScramble();
 
     intervalRef.current = setInterval(() => {
       setDisplayText(
-        originalText
+        text
           .split("")
           .map((char, index) => {
             if (char === " ") return " ";
-            if (index < iteration) return originalText[index];
+            if (index < iteration) return text[index];
             return CHARS[Math.floor(Math.random() * CHARS.length)];
           })
-          .join("")
+          .join(""),
       );
 
-      iteration += 1 / 2;
+      iteration += 0.5;
 
-      if (iteration >= originalText.length) {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        setDisplayText(originalText);
+      if (iteration >= text.length) {
+        clearScramble();
+        setDisplayText(text);
       }
     }, scrambleSpeed);
-  }, [text, scrambleSpeed]);
+  }, [text, scrambleSpeed, clearScramble]);
 
   const handleMouseEnter = () => {
     setIsHovering(true);
@@ -59,17 +59,11 @@ export default function ScrambleText({
 
   const handleMouseLeave = () => {
     setIsHovering(false);
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    clearScramble();
     setDisplayText(text);
   };
 
-  // Cleanup
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
+  useEffect(() => clearScramble, [clearScramble]);
 
   return (
     <motion.span
@@ -82,14 +76,9 @@ export default function ScrambleText({
         <span
           key={index}
           className={`inline-block transition-colors duration-100 ${
-            isHovering && char !== text[index]
-              ? "text-nexus-accent"
-              : ""
+            isHovering && char !== text[index] ? "text-nexus-accent" : ""
           }`}
-          style={{
-            fontFamily: "inherit",
-            whiteSpace: char === " " ? "pre" : undefined,
-          }}
+          style={{ whiteSpace: char === " " ? "pre" : undefined }}
         >
           {char}
         </span>

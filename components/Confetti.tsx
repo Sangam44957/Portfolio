@@ -1,39 +1,38 @@
-// components/Confetti.tsx
 "use client";
 
 import { useCallback } from "react";
 import confetti from "canvas-confetti";
+import { COLORS } from "@/lib/constants";
+
+const PALETTE = [COLORS.accent, COLORS.accentAlt, COLORS.pink, COLORS.green, COLORS.orange];
 
 export function useConfetti() {
   const fireConfetti = useCallback(() => {
-    // First burst
     confetti({
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ["#00f0ff", "#7b61ff", "#ff006e", "#00ff88", "#ff8c00"],
+      colors: PALETTE,
       disableForReducedMotion: true,
     });
 
-    // Second burst with delay
     setTimeout(() => {
       confetti({
         particleCount: 50,
         angle: 60,
         spread: 55,
         origin: { x: 0 },
-        colors: ["#00f0ff", "#7b61ff", "#ff006e"],
+        colors: PALETTE.slice(0, 3),
       });
     }, 200);
 
-    // Third burst from right
     setTimeout(() => {
       confetti({
         particleCount: 50,
         angle: 120,
         spread: 55,
         origin: { x: 1 },
-        colors: ["#00ff88", "#ff8c00", "#7b61ff"],
+        colors: PALETTE.slice(2),
       });
     }, 400);
   }, []);
