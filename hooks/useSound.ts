@@ -1,18 +1,6 @@
 "use client";
 
-import { useCallback, useState, useRef, useEffect } from "react";
-
-// Generate sounds programmatically as fallback
-function createAudioContext(): AudioContext | null {
-  if (typeof window === "undefined") return null;
-  try {
-    return new (window.AudioContext ||
-      (window as unknown as { webkitAudioContext: typeof AudioContext })
-        .webkitAudioContext)();
-  } catch {
-    return null;
-  }
-}
+import { useCallback, useRef, useEffect, useState } from "react";
 
 type SoundType =
   | "click"
@@ -24,57 +12,80 @@ type SoundType =
   | "whoosh"
   | "error";
 
+function createAudioContext(): AudioContext | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const Ctor =
+      window.AudioContext ??
+      (window as unknown as { webkitAudioContext: typeof AudioContext })
+        .webkitAudioContext;
+    return new Ctor();
+  } catch {
+    return null;
+  }
+}
+
+/** Sound file manifest — single source of truth */
+const SOUND_FILES: Partial<Record<SoundType, string>> = {
+  click: "/sounds/click.wav",
+  hover: "/sounds/hove.wav",
+  type: "/sounds/type.wav",
+  success: "/sounds/success.wav",
+  toggle: "/sounds/toggle.wav",
+  boot: "/sounds/boot.mp3",
+};
+
 export function useSound() {
-  const [isMuted, setIsMuted] = useState(true); // Start muted by default
+  const [isMuted, setIsMuted] = useState(true);
+  const isMutedRef = useRef(true);
   const ctxRef = useRef<AudioContext | null>(null);
   const audioCache = useRef<Map<SoundType, HTMLAudioElement>>(new Map());
-  const [useFiles, setUseFiles] = useState(true);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const useFilesRef = useRef(true);
+  const isInitializedRef = useRef(false);
 
+  // Keep ref in sync to avoid stale closures
   useEffect(() => {
-    // Check saved preference
+    isMutedRef.current = isMuted;
+  }, [isMuted]);
+
+  // Load preferences and preload audio files
+  useEffect(() => {
     const savedMute = localStorage.getItem("nexus-sound-muted");
     if (savedMute !== null) {
-      setIsMuted(savedMute === "true");
+      const parsed = savedMute === "true";
+      setIsMuted(parsed);
+      isMutedRef.current = parsed;
     }
 
-    // Preload sound files
-    const sounds: Partial<Record<SoundType, string>> = {
-      click: "/sounds/click.wav",
-      hover: "/sounds/hove.wav",
-      type: "/sounds/type.wav",
-      success: "/sounds/success.wav",
-      toggle: "/sounds/toggle.wav",
-      boot: "/sounds/boot.mp3",
-    };
-
     let loadedCount = 0;
-    const totalSounds = Object.keys(sounds).length;
+    const entries = Object.entries(SOUND_FILES);
+    const totalSounds = entries.length;
 
-    Object.entries(sounds).forEach(([key, path]) => {
+    entries.forEach(([key, path]) => {
       const audio = new Audio(path);
       audio.preload = "auto";
       audio.volume = 0.3;
-      audio.onerror = () => {
-        console.warn(`Failed to load sound: ${path}`);
-        setUseFiles(false);
-      };
-      audio.onloadeddata = () => {
+
+      audio.addEventListener("error", () => {
+        useFilesRef.current = false;
+      });
+
+      audio.addEventListener("canplaythrough", () => {
         loadedCount++;
-        if (loadedCount === totalSounds) {
-          setIsInitialized(true);
-          console.log("✅ All sounds loaded successfully");
+        if (loadedCount >= totalSounds) {
+          isInitializedRef.current = true;
         }
-      };
+      });
+
       audioCache.current.set(key as SoundType, audio);
     });
 
-    // Fallback initialization
-    setTimeout(() => {
-      if (!isInitialized) {
-        setIsInitialized(true);
-      }
+    // Fallback: mark initialized after timeout even if files fail
+    const fallbackTimer = setTimeout(() => {
+      isInitializedRef.current = true;
     }, 2000);
+
+    return () => clearTimeout(fallbackTimer);
   }, []);
 
   const getContext = useCallback(() => {
@@ -88,10 +99,7 @@ export function useSound() {
     (sound: SoundType, volume: number) => {
       const ctx = getContext();
       if (!ctx) return;
-
-      if (ctx.state === "suspended") {
-        ctx.resume();
-      }
+      if (ctx.state === "suspended") ctx.resume();
 
       const oscillator = ctx.createOscillator();
       const gainNode = ctx.createGain();
@@ -101,37 +109,31 @@ export function useSound() {
       const now = ctx.currentTime;
       gainNode.gain.setValueAtTime(0, now);
 
-      switch (sound) {
-        case "click":
+      const configs: Record<SoundType, () => { duration: number }> = {
+        click: () => {
           oscillator.frequency.setValueAtTime(800, now);
           oscillator.frequency.exponentialRampToValueAtTime(400, now + 0.05);
           oscillator.type = "sine";
           gainNode.gain.linearRampToValueAtTime(volume, now + 0.005);
           gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-          oscillator.start(now);
-          oscillator.stop(now + 0.08);
-          break;
-
-        case "hover":
+          return { duration: 0.08 };
+        },
+        hover: () => {
           oscillator.frequency.setValueAtTime(600, now);
           oscillator.frequency.exponentialRampToValueAtTime(900, now + 0.06);
           oscillator.type = "sine";
           gainNode.gain.linearRampToValueAtTime(volume * 0.3, now + 0.01);
           gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-          oscillator.start(now);
-          oscillator.stop(now + 0.06);
-          break;
-
-        case "type":
+          return { duration: 0.06 };
+        },
+        type: () => {
           oscillator.frequency.setValueAtTime(1200 + Math.random() * 400, now);
           oscillator.type = "square";
           gainNode.gain.linearRampToValueAtTime(volume * 0.2, now + 0.002);
           gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
-          oscillator.start(now);
-          oscillator.stop(now + 0.03);
-          break;
-
-        case "success":
+          return { duration: 0.03 };
+        },
+        success: () => {
           oscillator.frequency.setValueAtTime(523, now);
           oscillator.frequency.setValueAtTime(659, now + 0.1);
           oscillator.frequency.setValueAtTime(784, now + 0.2);
@@ -139,95 +141,74 @@ export function useSound() {
           gainNode.gain.linearRampToValueAtTime(volume, now + 0.01);
           gainNode.gain.setValueAtTime(volume, now + 0.25);
           gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
-          oscillator.start(now);
-          oscillator.stop(now + 0.5);
-          break;
-
-        case "toggle":
+          return { duration: 0.5 };
+        },
+        toggle: () => {
           oscillator.frequency.setValueAtTime(500, now);
           oscillator.frequency.exponentialRampToValueAtTime(1000, now + 0.04);
           oscillator.type = "sine";
           gainNode.gain.linearRampToValueAtTime(volume * 0.5, now + 0.005);
           gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-          oscillator.start(now);
-          oscillator.stop(now + 0.06);
-          break;
-
-        case "boot":
+          return { duration: 0.06 };
+        },
+        boot: () => {
           oscillator.frequency.setValueAtTime(100, now);
           oscillator.frequency.exponentialRampToValueAtTime(2000, now + 0.3);
           oscillator.type = "sawtooth";
           gainNode.gain.linearRampToValueAtTime(volume * 0.3, now + 0.01);
           gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-          oscillator.start(now);
-          oscillator.stop(now + 0.4);
-          break;
-
-        case "whoosh":
+          return { duration: 0.4 };
+        },
+        whoosh: () => {
           oscillator.frequency.setValueAtTime(200, now);
           oscillator.frequency.exponentialRampToValueAtTime(50, now + 0.15);
           oscillator.type = "sine";
           gainNode.gain.linearRampToValueAtTime(volume * 0.3, now + 0.02);
           gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-          oscillator.start(now);
-          oscillator.stop(now + 0.15);
-          break;
-
-        case "error":
+          return { duration: 0.15 };
+        },
+        error: () => {
           oscillator.frequency.setValueAtTime(300, now);
           oscillator.frequency.setValueAtTime(200, now + 0.1);
           oscillator.type = "square";
           gainNode.gain.linearRampToValueAtTime(volume * 0.3, now + 0.01);
           gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
-          oscillator.start(now);
-          oscillator.stop(now + 0.2);
-          break;
+          return { duration: 0.2 };
+        },
+      };
 
-        default:
-          oscillator.frequency.setValueAtTime(440, now);
-          oscillator.type = "sine";
-          gainNode.gain.linearRampToValueAtTime(volume, now + 0.01);
-          gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-          oscillator.start(now);
-          oscillator.stop(now + 0.1);
-      }
+      const { duration } = (configs[sound] ?? configs.click)();
+      oscillator.start(now);
+      oscillator.stop(now + duration);
     },
-    [getContext]
+    [getContext],
   );
 
   const play = useCallback(
     (sound: SoundType, volume = 0.3) => {
-      if (isMuted) return;
-      if (!isInitialized) {
-        console.log("⏳ Sounds not initialized yet");
-        return;
-      }
+      if (isMutedRef.current || !isInitializedRef.current) return;
 
-      // Try to use audio files first
-      if (useFiles) {
+      if (useFilesRef.current) {
         const audio = audioCache.current.get(sound);
         if (audio) {
-          const soundClone = audio.cloneNode() as HTMLAudioElement;
-          soundClone.volume = volume;
-          soundClone.play().catch((err) => {
-            console.warn(`⚠️ File failed, trying programmatic:`, err);
-            playProgrammatic(sound, volume);
-          });
+          const clone = audio.cloneNode() as HTMLAudioElement;
+          clone.volume = volume;
+          clone.play().catch(() => playProgrammatic(sound, volume));
           return;
         }
       }
 
-      // Fallback to programmatic sounds
       playProgrammatic(sound, volume);
     },
-    [isMuted, useFiles, playProgrammatic, isInitialized]
+    [playProgrammatic],
   );
 
   const toggleMute = useCallback(() => {
     setIsMuted((prev) => {
-      const newValue = !prev;
-      localStorage.setItem("nexus-sound-muted", String(newValue));
-      return newValue;
+      const next = !prev;
+      isMutedRef.current = next;
+      localStorage.setItem("nexus-sound-muted", String(next));
+      return next;
     });
   }, []);
 
