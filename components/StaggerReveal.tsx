@@ -11,45 +11,23 @@ interface StaggerRevealProps {
   direction?: "up" | "down" | "left" | "right";
 }
 
-export default function StaggerReveal({
-  children,
-  className = "",
-  delay = 0,
-  direction = "up",
-}: StaggerRevealProps) {
+const OFFSETS = {
+  up: { y: 40, x: 0 },
+  down: { y: -40, x: 0 },
+  left: { y: 0, x: 40 },
+  right: { y: 0, x: -40 },
+};
+
+export default function StaggerReveal({ children, className = "", delay = 0, direction = "up" }: StaggerRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-
-  const directionOffset = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { y: 0, x: 40 },
-    right: { y: 0, x: -40 },
-  };
 
   return (
     <div ref={ref} className={className}>
       <motion.div
-        initial={{
-          opacity: 0,
-          ...directionOffset[direction],
-          filter: "blur(10px)",
-        }}
-        animate={
-          isInView
-            ? {
-                opacity: 1,
-                y: 0,
-                x: 0,
-                filter: "blur(0px)",
-              }
-            : {}
-        }
-        transition={{
-          duration: 0.8,
-          delay,
-          ease: EASE_OUT_EXPO,
-        }}
+        initial={{ opacity: 0, ...OFFSETS[direction], filter: "blur(10px)" }}
+        animate={isInView ? { opacity: 1, y: 0, x: 0, filter: "blur(0px)" } : {}}
+        transition={{ duration: 0.8, delay, ease: EASE_OUT_EXPO }}
       >
         {children}
       </motion.div>

@@ -6,13 +6,13 @@ import SectionWrapper from "./SectionWrapper";
 import ProjectCard from "./ProjectCard";
 import { projects } from "@/data/portfolio";
 
-const filterOptions = [
+const FILTERS = [
   { key: "all", label: "All Projects" },
   { key: "featured", label: "Featured" },
   { key: "fullstack", label: "Full-Stack" },
   { key: "ai", label: "AI/ML" },
   { key: "mobile", label: "Mobile" },
-];
+] as const;
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -21,8 +21,8 @@ export default function Projects() {
     activeFilter === "all"
       ? projects
       : activeFilter === "featured"
-      ? projects.filter((p) => p.featured)
-      : projects.filter((p) => p.category === activeFilter);
+        ? projects.filter((p) => p.featured)
+        : projects.filter((p) => p.category === activeFilter);
 
   return (
     <SectionWrapper
@@ -31,9 +31,8 @@ export default function Projects() {
       subtitle="A selection of projects I've built with passion and precision"
       number="03"
     >
-      {/* Filter Tabs */}
       <div className="flex flex-wrap gap-2 mb-12">
-        {filterOptions.map((filter) => (
+        {FILTERS.map((filter) => (
           <motion.button
             key={filter.key}
             onClick={() => setActiveFilter(filter.key)}
@@ -50,11 +49,7 @@ export default function Projects() {
         ))}
       </div>
 
-      {/* Project Grid */}
-      <motion.div
-        className="grid md:grid-cols-2 gap-8"
-        layout
-      >
+      <motion.div className="grid md:grid-cols-2 gap-8" layout>
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
@@ -62,7 +57,6 @@ export default function Projects() {
         </AnimatePresence>
       </motion.div>
 
-      {/* "More on GitHub" link */}
       <motion.div
         className="text-center mt-16"
         initial={{ opacity: 0 }}
@@ -77,11 +71,7 @@ export default function Projects() {
           whileHover={{ y: -2 }}
         >
           <span>View more on GitHub</span>
-          <motion.span
-            className="inline-block"
-            animate={{ x: [0, 3, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
+          <motion.span className="inline-block" animate={{ x: [0, 3, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
             →
           </motion.span>
         </motion.a>

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════
-   NEXUS PORTFOLIO — CSS CUSTOM PROPERTIES
+   PORTFOLIO — CSS CUSTOM PROPERTIES
    ═══════════════════════════════════════ */
 
 :root {
@@ -18,19 +18,6 @@
   --nexus-muted: #737373;
   --nexus-pink: #ff006e;
   --nexus-green: #00ff88;
-}
-
-html.light {
-  --nexus-bg: #f8f9fc;
-  --nexus-surface: #eef0f5;
-  --nexus-card: #ffffff;
-  --nexus-border: rgba(0, 0, 0, 0.06);
-  --nexus-text: #1a1a2e;
-  --nexus-muted: #6b7280;
-  --nexus-accent-light: #0099cc;
-  --nexus-pink: #d4005c;
-  --nexus-green: #00a65a;
-  color-scheme: light;
 }
 
 /* ── Smooth Scroll ── */
@@ -74,11 +61,6 @@ body {
   color: #fff;
 }
 
-html.light ::selection {
-  background: rgba(0, 153, 204, 0.15);
-  color: #1a1a2e;
-}
-
 /* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 6px;
@@ -108,22 +90,6 @@ html.light ::selection {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-html.light .glass {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
-}
-
-html.light .glass-strong {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(40px) saturate(200%);
-  -webkit-backdrop-filter: blur(40px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.03);
-}
-
 /* ── Gradient Text ── */
 .gradient-text {
   background: linear-gradient(135deg, var(--nexus-accent) 0%, var(--nexus-accent-alt) 50%, var(--nexus-pink) 100%);
@@ -147,17 +113,9 @@ html.light .glass-strong {
     0 0 21px var(--nexus-accent), 0 0 42px var(--nexus-accent);
 }
 
-html.light .neon-glow {
-  text-shadow: 0 0 7px rgba(0, 153, 204, 0.3), 0 0 10px rgba(0, 153, 204, 0.2);
-}
-
 .box-glow {
   box-shadow: 0 0 15px rgba(0, 240, 255, 0.15), 0 0 30px rgba(0, 240, 255, 0.05),
     inset 0 0 15px rgba(0, 240, 255, 0.05);
-}
-
-html.light .box-glow {
-  box-shadow: 0 0 15px rgba(0, 153, 204, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 /* ── Animated Border ── */
@@ -193,11 +151,6 @@ html.light .box-glow {
   background-size: 60px 60px;
 }
 
-html.light .grid-bg {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
-}
-
 /* ── Noise Overlay ── */
 .noise-overlay::after {
   content: "";
@@ -207,10 +160,6 @@ html.light .grid-bg {
   pointer-events: none;
   z-index: 9999;
   opacity: 0.4;
-}
-
-html.light .noise-overlay::after {
-  opacity: 0.08;
 }
 
 /* ── Terminal ── */
@@ -300,23 +249,334 @@ html.light .noise-overlay::after {
   transform: translateX(-50%) translateY(0);
 }
 
-/* ── Light Mode: Particle canvas opacity ── */
+/* ═══════════════════════════════════════════════════════════
+   LIGHT MODE — PREMIUM DARK-INSPIRED LIGHT THEME
+   Every element carefully styled for light mode
+   ═══════════════════════════════════════════════════════════ */
+
+html.light {
+  --nexus-bg: #f0f2f5;
+  --nexus-accent: #0088aa;
+  --nexus-accent-alt: #5a3fd6;
+  --nexus-pink: #c4004e;
+  --nexus-green: #00875a;
+  color-scheme: light;
+}
+
+/* ── Body ── */
+html.light body {
+  background: #f0f2f5;
+  color: #1a1a2e;
+}
+
+/* ── Glass Cards — The Most Important Fix ── */
+html.light .glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+html.light .glass:hover {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+html.light .glass-strong {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Text Colors ── */
+html.light .text-nexus-text {
+  color: #1a1a2e !important;
+}
+
+html.light .text-nexus-muted {
+  color: #555568 !important;
+}
+
+html.light .text-nexus-muted\/50 {
+  color: rgba(85, 85, 104, 0.5) !important;
+}
+
+html.light .text-nexus-muted\/40 {
+  color: rgba(85, 85, 104, 0.4) !important;
+}
+
+html.light .text-nexus-muted\/30 {
+  color: rgba(85, 85, 104, 0.3) !important;
+}
+
+/* ── Accent Colors — Deeper for light bg ── */
+html.light .text-nexus-accent {
+  color: #0088aa !important;
+}
+
+html.light .text-nexus-green {
+  color: #00875a !important;
+}
+
+html.light .text-nexus-pink {
+  color: #c4004e !important;
+}
+
+html.light .text-nexus-accentAlt {
+  color: #5a3fd6 !important;
+}
+
+/* ── Background Colors ── */
+html.light .bg-nexus-bg {
+  background-color: #f0f2f5 !important;
+}
+
+html.light .bg-nexus-surface {
+  background-color: #e4e6eb !important;
+}
+
+html.light .bg-nexus-surface\/50 {
+  background-color: rgba(228, 230, 235, 0.5) !important;
+}
+
+html.light .bg-nexus-card {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-nexus-bg\/50 {
+  background-color: rgba(240, 242, 245, 0.5) !important;
+}
+
+html.light .bg-nexus-bg\/80 {
+  background-color: rgba(240, 242, 245, 0.8) !important;
+}
+
+html.light .bg-nexus-bg\/90 {
+  background-color: rgba(240, 242, 245, 0.9) !important;
+}
+
+html.light .bg-nexus-bg\/95 {
+  background-color: rgba(240, 242, 245, 0.95) !important;
+}
+
+/* ── Border Colors ── */
+html.light .border-nexus-border {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+html.light .border-nexus-border\/20 {
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light .border-nexus-border\/30 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light .border-nexus-border\/10 {
+  border-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* ── Gradient Text — Richer for light ── */
+html.light .gradient-text {
+  background: linear-gradient(135deg, #0077b6 0%, #6c3ce0 50%, #c4004e 100%) !important;
+  background-size: 200% 200% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+html.light .gradient-text-static {
+  background: linear-gradient(135deg, #0077b6, #6c3ce0) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* ── Accent Backgrounds ── */
+html.light .bg-nexus-accent\/10 {
+  background-color: rgba(0, 136, 170, 0.08) !important;
+}
+
+html.light .bg-nexus-accent\/20 {
+  background-color: rgba(0, 136, 170, 0.12) !important;
+}
+
+html.light .bg-nexus-accentAlt\/10 {
+  background-color: rgba(90, 63, 214, 0.08) !important;
+}
+
+html.light .bg-nexus-accentAlt\/20 {
+  background-color: rgba(90, 63, 214, 0.12) !important;
+}
+
+html.light .bg-nexus-pink\/10 {
+  background-color: rgba(196, 0, 78, 0.08) !important;
+}
+
+html.light .bg-nexus-pink\/20 {
+  background-color: rgba(196, 0, 78, 0.12) !important;
+}
+
+html.light .bg-nexus-green\/10 {
+  background-color: rgba(0, 135, 90, 0.08) !important;
+}
+
+/* ── Accent Borders ── */
+html.light .border-nexus-accent\/20 {
+  border-color: rgba(0, 136, 170, 0.2) !important;
+}
+
+html.light .border-nexus-accent\/30 {
+  border-color: rgba(0, 136, 170, 0.25) !important;
+}
+
+html.light .border-nexus-accent\/40 {
+  border-color: rgba(0, 136, 170, 0.3) !important;
+}
+
+html.light .border-nexus-accent\/60 {
+  border-color: rgba(0, 136, 170, 0.4) !important;
+}
+
+html.light .border-nexus-accentAlt\/20 {
+  border-color: rgba(90, 63, 214, 0.2) !important;
+}
+
+html.light .border-nexus-pink\/20 {
+  border-color: rgba(196, 0, 78, 0.2) !important;
+}
+
+/* ── Grid Background ── */
+html.light .grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px) !important;
+  background-size: 60px 60px !important;
+}
+
+/* ── Scrollbar ── */
+html.light ::-webkit-scrollbar-track {
+  background: #e4e6eb;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #0088aa, #6c3ce0);
+}
+
+/* ── Selection ── */
+html.light ::selection {
+  background: rgba(0, 136, 170, 0.2);
+  color: #1a1a2e;
+}
+
+/* ── Glow Effects — Subtle in Light ── */
+html.light .neon-glow {
+  text-shadow: none !important;
+}
+
+html.light .box-glow {
+  box-shadow:
+    0 2px 8px rgba(0, 136, 170, 0.08),
+    0 4px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* ── Noise Overlay ── */
+html.light .noise-overlay::after {
+  opacity: 0.06 !important;
+}
+
+/* ── Animated Border ── */
+html.light .animated-border::after {
+  background: #f0f2f5 !important;
+}
+
+/* ── Divider Lines ── */
+html.light .via-nexus-border\/30 {
+  --tw-gradient-via: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ── Particle Field — Reduce in light ── */
 html.light canvas {
-  opacity: 0.4;
+  opacity: 0.3 !important;
 }
 
-/* ── Smooth theme transitions (light only) ── */
-html.light *,
-html.light *::before,
-html.light *::after {
-  transition-property: background-color, border-color, color, box-shadow;
-  transition-duration: 0.3s;
-  transition-timing-function: ease;
+/* ── Terminal — DARK EVEN IN LIGHT MODE ── */
+html.light #terminal .glass,
+html.light section:has(.terminal-cursor) .glass {
+  background: rgba(10, 10, 20, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+  color: #e5e5e5 !important;
 }
 
-html.light [class*="animate-"],
-html.light [class*="transition-"],
-html.light canvas,
-html.light video {
-  transition-property: none;
+html.light #terminal .text-nexus-accent,
+html.light section:has(.terminal-cursor) .text-nexus-accent {
+  color: #00f0ff !important;
+}
+
+html.light #terminal .text-nexus-muted,
+html.light section:has(.terminal-cursor) .text-nexus-muted {
+  color: #737373 !important;
+}
+
+html.light .terminal-cursor {
+  background: #00f0ff !important;
+}
+
+/* ── Input Fields ── */
+html.light input,
+html.light textarea {
+  color: #1a1a2e !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: rgba(85, 85, 104, 0.4) !important;
+}
+
+/* ── Red/Error Colors ── */
+html.light .text-red-400 {
+  color: #dc2626 !important;
+}
+
+/* ── Hover States ── */
+html.light .hover\:text-nexus-accent:hover {
+  color: #0077b6 !important;
+}
+
+html.light .hover\:text-nexus-text:hover {
+  color: #1a1a2e !important;
+}
+
+/* ── Preloader (keep dark) ── */
+html.light .fixed.inset-0.z-\[99999\].bg-nexus-bg {
+  background: #050505 !important;
+}
+
+/* ── Tech Icons — Fix white/light icons in light mode ── */
+html.light [style*="color: #ffffff"],
+html.light [style*="color: rgb(255, 255, 255)"],
+html.light [style*="color: #2D3748"] {
+  filter: brightness(0.2) saturate(1.5) !important;
+}
+
+/* Specific icon color overrides for light mode */
+html.light svg[class*="w-8"][class*="h-8"],
+html.light svg[class*="w-4"][class*="h-4"] {
+  /* This targets skill icons */
+}
+
+/* Force dark color for white icons in light mode */
+html.light span[style*="color: #ffffff"] svg,
+html.light span[style*="color: rgb(255, 255, 255)"] svg,
+html.light span[style*="color: #2D3748"] svg {
+  color: #1a1a2e !important;
+  filter: none !important;
 }

@@ -5,13 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { EASE_OUT_EXPO } from "@/lib/constants";
 
 const BOOT_LINES = [
-  { text: "NEXUS OS v2.0.25 — Initializing...", delay: 0 },
+  { text: "Portfolio v1.0 — Initializing...", delay: 0 },
   { text: "[OK] Loading system modules", delay: 300 },
   { text: "[OK] Mounting creative filesystem", delay: 600 },
-  { text: "[OK] Establishing neural link", delay: 900 },
+  { text: "[OK] Establishing connection", delay: 900 },
   { text: "[OK] Compiling portfolio assets", delay: 1200 },
-  { text: "[OK] Injecting caffeine dependencies", delay: 1500 },
-  { text: "[OK] Rendering digital universe", delay: 1800 },
+  { text: "[OK] Loading dependencies", delay: 1500 },
+  { text: "[OK] Rendering interface", delay: 1800 },
   { text: "", delay: 2100 },
   { text: "Welcome, visitor.", delay: 2300 },
   { text: "System ready. ✓", delay: 2600 },
@@ -86,7 +86,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                     <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                     <div className="w-3 h-3 rounded-full bg-green-500/80" />
                     <span className="ml-3 text-xs text-nexus-muted font-mono">
-                      nexus://boot-sequence
+                      portfolio://boot
                     </span>
                   </div>
 
@@ -164,17 +164,17 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                   animate={{ opacity: [0, 1, 0, 1] }}
                   transition={{ duration: 1.5 }}
                 >
-                  Entering the nexus...
+                  Preparing portfolio...
                 </motion.p>
               </motion.div>
             )}
           </AnimatePresence>
 
           {/* Corner decorations */}
-          <span className="absolute top-6 left-6 text-xs font-mono text-nexus-muted/30">NEXUS//SYS</span>
-          <span className="absolute top-6 right-6 text-xs font-mono text-nexus-muted/30">v2.0.25</span>
-          <span className="absolute bottom-6 left-6 text-xs font-mono text-nexus-muted/30">2024</span>
-          <span className="absolute bottom-6 right-6 text-xs font-mono text-nexus-muted/30">PORTFOLIO.EXE</span>
+          <span className="absolute top-6 left-6 text-xs font-mono text-nexus-muted/30">PORTFOLIO</span>
+          <span className="absolute top-6 right-6 text-xs font-mono text-nexus-muted/30">v1.0</span>
+          <span className="absolute bottom-6 left-6 text-xs font-mono text-nexus-muted/30">2025</span>
+          <span className="absolute bottom-6 right-6 text-xs font-mono text-nexus-muted/30">SANGAM.DEV</span>
         </motion.div>
       )}
     </AnimatePresence>

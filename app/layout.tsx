@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { SoundProvider } from "@/contexts/SoundContext";
-import { TOAST_STYLE } from "@/lib/constants";
 import "./globals.css";
 
 const inter = Inter({
@@ -74,7 +73,7 @@ export default function RootLayout({
       <body className="font-sans antialiased noise-overlay">
         <SoundProvider>
           {children}
-          <Toaster position="bottom-right" toastOptions={TOAST_STYLE} />
+          <Toaster position="bottom-right" />
         </SoundProvider>
       </body>
     </html>

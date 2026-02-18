@@ -2,9 +2,11 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,tsx}",
+    "./contexts/**/*.{js,ts,tsx}",
+    "./data/**/*.{js,ts,tsx}",
   ],
   darkMode: "class",
   theme: {
@@ -31,20 +33,19 @@ const config: Config = {
         display: ["var(--font-space)", "system-ui", "sans-serif"],
       },
       animation: {
-        "float": "float 6s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
         "float-delayed": "float 6s ease-in-out 2s infinite",
         "pulse-glow": "pulseGlow 2s ease-in-out infinite",
         "slide-up": "slideUp 0.5s ease-out",
         "slide-down": "slideDown 0.5s ease-out",
         "fade-in": "fadeIn 0.5s ease-out",
         "spin-slow": "spin 20s linear infinite",
-        "marquee": "marquee 30s linear infinite",
+        marquee: "marquee 30s linear infinite",
         "marquee-reverse": "marquee 30s linear infinite reverse",
-        "glitch": "glitch 0.3s ease-in-out infinite",
-        "typing": "typing 3.5s steps(30) 1s forwards, blink 0.75s step-end infinite",
+        glitch: "glitch 0.3s ease-in-out infinite",
         "border-flow": "borderFlow 3s linear infinite",
         "gradient-shift": "gradientShift 8s ease infinite",
-        "orbit": "orbit 20s linear infinite",
+        orbit: "orbit 20s linear infinite",
       },
       keyframes: {
         float: {
@@ -79,13 +80,6 @@ const config: Config = {
           "60%": { transform: "translate(3px, 3px)" },
           "80%": { transform: "translate(3px, -3px)" },
           "100%": { transform: "translate(0)" },
-        },
-        typing: {
-          "0%": { width: "0" },
-          "100%": { width: "100%" },
-        },
-        blink: {
-          "50%": { borderColor: "transparent" },
         },
         borderFlow: {
           "0%": { backgroundPosition: "0% 50%" },

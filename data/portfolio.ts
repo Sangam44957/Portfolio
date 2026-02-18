@@ -1,131 +1,51 @@
+import type { IconType } from "react-icons";
 import {
-  SiReact, SiNodedotjs, SiExpress, SiPostgresql, SiMongodb,
-  SiJavascript, SiCplusplus, SiPython, SiHtml5, SiCss3,
-  SiTailwindcss, SiBootstrap, SiGit, SiDocker, SiLinux, SiVercel
+  SiTypescript,
+  SiJavascript,
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiExpress,
+  SiPostgresql,
+  SiMongodb,
+  SiTailwindcss,
+  SiDocker,
+  SiGit,
+  SiPython,
+  SiFigma,
+  SiRedis,
+  SiPrisma,
+  SiGraphql,
+  SiFirebase,
+  SiAmazon,
+  SiLinux,
+  SiCplusplus,
 } from "react-icons/si";
+
+/* ────────────────────────────────────
+   Types
+   ──────────────────────────────────── */
 
 export interface Skill {
   name: string;
-  icon: React.ComponentType<{ className?: string; size?: number }>;
+  icon: IconType;
   color: string;
-  category: "frontend" | "backend" | "tools" | "languages";
   level: number;
+  category: "frontend" | "backend" | "languages" | "tools";
 }
-
-export const personalInfo = {
-  name: "Sangam",
-  lastName: "Mehta",
-  title: "Backend Developer",
-  tagline: "Backend Engineer | Building Scalable APIs & Microservices",
-  description: "Passionate backend developer specializing in Node.js, Express.js, and database optimization. Experienced in building RESTful APIs, implementing authentication systems, and architecting scalable microservices. Strong problem-solver with 250+ DSA problems solved and a 5-star rating in C++ on HackerRank.",
-  email: "sangammehta44@gmail.com",
-  phone: "+91 7015052100",
-  location: "Phagwara, Punjab",
-  resumeUrl: "/CV_202602131446017612_12323651.pdf",
-  avatarUrl: "/avatar.jpg",
-  availability: true,
-  socials: {
-    github: "https://github.com/Sangam44957",
-    linkedin: "https://linkedin.com/in/mehtasangam77",
-    twitter: "https://x.com/Sangam6931",
-    instagram: "https://www.instagram.com/sangam.mehta.104/",
-  },
-};
-
-export const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
-];
-
-export const stats = [
-  { label: "Projects Built", value: 3, suffix: "+" },
-  { label: "DSA Solved", value: 250, suffix: "+" },
-  { label: "Experience", value: 1, suffix: "y" },
-  { label: "Technologies", value: 15, suffix: "+" },
-];
-
-export const skills: Skill[] = [
-  { name: "Node.js", icon: SiNodedotjs, color: "#339933", category: "backend", level: 90 },
-  { name: "Express.js", icon: SiExpress, color: "#ffffff", category: "backend", level: 88 },
-  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", category: "backend", level: 85 },
-  { name: "MongoDB", icon: SiMongodb, color: "#47A248", category: "backend", level: 82 },
-  { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", category: "languages", level: 92 },
-  { name: "C++", icon: SiCplusplus, color: "#00599C", category: "languages", level: 90 },
-  { name: "Python", icon: SiPython, color: "#3776AB", category: "languages", level: 85 },
-  { name: "React.js", icon: SiReact, color: "#61DAFB", category: "frontend", level: 88 },
-  { name: "HTML5", icon: SiHtml5, color: "#E34F26", category: "frontend", level: 95 },
-  { name: "CSS3", icon: SiCss3, color: "#1572B6", category: "frontend", level: 90 },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", category: "frontend", level: 92 },
-  { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3", category: "frontend", level: 85 },
-  { name: "Git", icon: SiGit, color: "#F05032", category: "tools", level: 88 },
-  { name: "Docker", icon: SiDocker, color: "#2496ED", category: "tools", level: 75 },
-  { name: "Linux", icon: SiLinux, color: "#FCC624", category: "tools", level: 80 },
-  { name: "Vercel", icon: SiVercel, color: "#ffffff", category: "tools", level: 85 },
-];
 
 export interface Project {
   id: string;
   title: string;
   description: string;
-  longDescription: string;
-  image: string;
   techStack: string[];
   liveUrl: string;
   githubUrl: string;
-  featured: boolean;
-  category: "fullstack" | "ai" | "backend";
-  year: string;
+  category: "fullstack" | "ai" | "backend" | "mobile";
   color: string;
+  year: string;
+  featured: boolean;
 }
-
-export const projects: Project[] = [
-  {
-    id: "focusflow",
-    title: "FocusFlow",
-    description: "Task Management SaaS built with PERN Stack",
-    longDescription: "Architected modular Node.js/Express.js backend with request validation and error handling. Implemented Google OAuth 2.0 and JWT session management with RBAC. Optimized PostgreSQL queries and indexing, reducing load latency by 30%.",
-    image: "/projects/focusflow.jpg",
-    techStack: ["Node.js", "Express.js", "PostgreSQL", "React", "JWT", "OAuth 2.0"],
-    liveUrl: "https://focusflow-drab.vercel.app/",
-    githubUrl: "https://github.com/Sangam44957",
-    featured: true,
-    category: "fullstack",
-    year: "2025",
-    color: "#00f0ff",
-  },
-  {
-    id: "ai-fashion",
-    title: "AI Fashion Analyzer",
-    description: "Backend API Service with Gemini API",
-    longDescription: "Developed Flask backend with RESTful endpoints for image uploads and AI predictions. Integrated Gemini API with error handling, input validation, and response formatting. Implemented async processing for API calls, achieving 85% accuracy with fast response.",
-    image: "/projects/ai-fashion.jpg",
-    techStack: ["Python", "Flask", "Gemini API", "REST API", "Async Processing"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/Sangam44957",
-    featured: true,
-    category: "ai",
-    year: "2025",
-    color: "#7b61ff",
-  },
-  {
-    id: "agroinnovate",
-    title: "AgroInnovate",
-    description: "Farmer Support Platform",
-    longDescription: "Engineered backend services for real-time data aggregation from government APIs. Implemented API caching and optimized data-fetching logic, improving efficiency by 30%. Developed async JavaScript patterns for non-blocking calls, reducing response time by 20%.",
-    image: "/projects/agroinnovate.jpg",
-    techStack: ["PHP", "JavaScript", "REST API", "Caching", "Async Patterns"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/Sangam44957",
-    featured: false,
-    category: "backend",
-    year: "2025",
-    color: "#00ff88",
-  },
-];
 
 export interface Experience {
   id: string;
@@ -138,108 +58,316 @@ export interface Experience {
   type: "work" | "education" | "achievement";
 }
 
+export interface Testimonial {
+  name: string;
+  role: string;
+  content: string;
+}
+
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
+export interface Stat {
+  label: string;
+  value: number;
+  suffix: string;
+}
+
+/* ────────────────────────────────────
+   Personal Info
+   ──────────────────────────────────── */
+
+export const personalInfo = {
+  name: "Sangam",
+  lastName: "Mehta",
+  email: "sangammehta44@gmail.com",
+  phone: "+91 7015052100",
+  location: "Phagwara, Punjab",
+  tagline:
+    "I craft robust backend systems and elegant APIs that scale — turning complex problems into simple, reliable solutions.",
+  description:
+    "I'm a backend-focused developer with a passion for building scalable, high-performance applications. With expertise in Node.js, Express, and databases like PostgreSQL, I specialize in designing clean APIs, optimizing queries, and architecting systems that handle real-world load.",
+  resumeUrl: "/resume.pdf",
+  avatarUrl: "/avatar.jpg",
+  socials: {
+    github: "https://github.com/Sangam44957",
+    linkedin: "https://linkedin.com/in/mehtasangam77",
+    twitter: "https://x.com/Sangam6931",
+    instagram: "https://www.instagram.com/sangam.mehta.104/",
+  },
+} as const;
+
+/* ────────────────────────────────────
+   Navigation
+   ──────────────────────────────────── */
+
+export const navLinks: NavLink[] = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Experience", href: "#experience" },
+  { label: "Contact", href: "#contact" },
+];
+
+/* ────────────────────────────────────
+   Stats
+   ──────────────────────────────────── */
+
+export const stats: Stat[] = [
+  { label: "Projects Completed", value: 4, suffix: "+" },
+  { label: "DSA Problems", value: 250, suffix: "+" },
+  { label: "HackerRank Rating", value: 5, suffix: "⭐" },
+  { label: "CGPA", value: 7.7, suffix: "/10" },
+];
+
+/* ────────────────────────────────────
+   Skills
+   ──────────────────────────────────── */
+
+export const skills: Skill[] = [
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6", level: 90, category: "languages" },
+  { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", level: 95, category: "languages" },
+  { name: "Python", icon: SiPython, color: "#3776AB", level: 70, category: "languages" },
+  { name: "C++", icon: SiCplusplus, color: "#00599C", level: 65, category: "languages" },
+  { name: "React", icon: SiReact, color: "#61DAFB", level: 88, category: "frontend" },
+  { name: "Next.js", icon: SiNextdotjs, color: "#ffffff", level: 85, category: "frontend" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", level: 90, category: "frontend" },
+  { name: "Node.js", icon: SiNodedotjs, color: "#339933", level: 92, category: "backend" },
+  { name: "Express.js", icon: SiExpress, color: "#ffffff", level: 90, category: "backend" },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", level: 82, category: "backend" },
+  { name: "MongoDB", icon: SiMongodb, color: "#47A248", level: 80, category: "backend" },
+  { name: "Redis", icon: SiRedis, color: "#DC382D", level: 70, category: "backend" },
+  { name: "Prisma", icon: SiPrisma, color: "#2D3748", level: 78, category: "backend" },
+  { name: "GraphQL", icon: SiGraphql, color: "#E10098", level: 72, category: "backend" },
+  { name: "Docker", icon: SiDocker, color: "#2496ED", level: 75, category: "tools" },
+  { name: "Git", icon: SiGit, color: "#F05032", level: 88, category: "tools" },
+  { name: "AWS", icon: SiAmazon, color: "#FF9900", level: 65, category: "tools" },
+  { name: "Firebase", icon: SiFirebase, color: "#FFCA28", level: 72, category: "tools" },
+  { name: "Figma", icon: SiFigma, color: "#F24E1E", level: 60, category: "tools" },
+  { name: "Linux", icon: SiLinux, color: "#FCC624", level: 75, category: "tools" },
+];
+
+// Note: Blender skill would need SiBlender icon imported from react-icons/si
+
+/* ────────────────────────────────────
+   Projects
+   ──────────────────────────────────── */
+
+export const projects: Project[] = [
+  {
+    id: "focusflow",
+    title: "FocusFlow",
+    description:
+      "Task Management SaaS built with PERN stack featuring Google OAuth 2.0, JWT authentication, and optimized PostgreSQL queries reducing load latency by 30%.",
+    techStack: ["Node.js", "Express.js", "PostgreSQL", "React", "JWT", "OAuth 2.0"],
+    liveUrl: "https://focusflow-drab.vercel.app/",
+    githubUrl: "https://github.com/Sangam44957/focusflow",
+    category: "fullstack",
+    color: "#00f0ff",
+    year: "2025",
+    featured: true,
+  },
+  {
+    id: "ai-fashion-analyzer",
+    title: "AI Fashion Analyzer",
+    description:
+      "Backend API service using Flask and Gemini API for image uploads and AI predictions with async processing achieving 85% accuracy.",
+    techStack: ["Python", "Flask", "Gemini API", "REST API"],
+    liveUrl: "https://github.com/Sangam44957/AI-Trend-Analyzer",
+    githubUrl: "https://github.com/Sangam44957/AI-Trend-Analyzer",
+    category: "ai",
+    color: "#7b61ff",
+    year: "2025",
+    featured: true,
+  },
+  {
+    id: "agroinnovate",
+    title: "AgroInnovate",
+    description:
+      "Farmer Support Platform with real-time data aggregation from government APIs, API caching, and async JavaScript patterns reducing response time by 20%.",
+    techStack: ["PHP", "JavaScript", "REST API", "Async Processing"],
+    liveUrl: "https://github.com/Sangam44957/AgroInnovate-1",
+    githubUrl: "https://github.com/Sangam44957/AgroInnovate-1",
+    category: "backend",
+    color: "#ff006e",
+    year: "2025",
+    featured: true,
+  },
+  {
+    id: "blender-animation",
+    title: "Stylized Character Walk Animation",
+    description:
+      "3D character animation in Blender featuring a walk cycle on a miniature planet with armature-based keyframe animation and optimized rendering.",
+    techStack: ["Blender", "3D Animation", "Keyframe Animation", "Eevee/Cycles"],
+    liveUrl: "https://drive.google.com/drive/folders/10EGZdVVf8ZKDKtnZT3cnXHma48o0Pl03",
+    githubUrl: "https://github.com/Sangam44957/stylized-character-walk-animation-blender",
+    category: "fullstack",
+    color: "#ff8c00",
+    year: "2025",
+    featured: false,
+  },
+];
+
+/* ────────────────────────────────────
+   Experiences
+   ──────────────────────────────────── */
+
 export const experiences: Experience[] = [
   {
     id: "exp-1",
-    role: "AI Evaluation Specialist",
-    company: "Alignerr",
-    companyUrl: "#",
-    duration: "Sep 2025 — Dec 2025",
+    role: "B.Tech Computer Science (6th Semester)",
+    company: "Lovely Professional University",
+    companyUrl: "https://lpu.in",
+    duration: "Aug 2022 – Present (3rd Year)",
     description: [
-      "Built YAML-based evaluation scenarios testing implicit reasoning in AI assistants",
-      "Designed test cases identifying reasoning gaps across frontier LLMs like GPT-5, Claude, and Gemini",
-      "Validated work through automated QA system, producing multilingual annotations with 95% accuracy",
+      "CGPA: 7.7 - Specializing in backend engineering and system design",
+      "Solved 250+ DSA problems on LeetCode and GeeksforGeeks",
+      "Achieved 5-Star rating in C++ on HackerRank",
     ],
-    techUsed: ["YAML", "AI Testing", "LLM Evaluation", "QA Systems"],
-    type: "work",
+    techUsed: ["C++", "Python", "JavaScript", "Data Structures", "Algorithms"],
+    type: "education",
   },
   {
     id: "exp-2",
-    role: "AI Trainer",
-    company: "Outlier",
-    companyUrl: "#",
-    duration: "Aug 2024 — Aug 2025",
+    role: "AI Evaluation Specialist (Freelance)",
+    company: "Alignerr",
+    companyUrl: "https://alignerr.com",
+    duration: "Sep 2024 – Dec 2024",
     description: [
-      "Evaluated AI-generated responses to enhance reasoning quality, factual accuracy, and alignment",
-      "Completed multiple AI training and evaluation modules focused on model performance benchmarking",
-      "Identified low-quality outputs through comparative analysis, providing structured feedback for improvement",
+      "Built YAML-based evaluation scenarios testing implicit reasoning in AI assistants",
+      "Designed test cases identifying reasoning gaps across frontier LLMs",
+      "Achieved 95% accuracy in automated QA system validations",
     ],
-    techUsed: ["AI Training", "Model Evaluation", "Performance Benchmarking"],
+    techUsed: ["YAML", "AI Testing", "LLM Evaluation"],
     type: "work",
   },
   {
     id: "exp-3",
-    role: "Bachelor of Technology in Computer Science",
-    company: "Lovely Professional University",
-    companyUrl: "#",
-    duration: "Aug 2023 — Present",
+    role: "AI Trainer (Freelance)",
+    company: "Outlier",
+    companyUrl: "https://outlier.ai",
+    duration: "Aug 2024 – Aug 2024",
     description: [
-      "CGPA: 7.71",
-      "Achieved 5-Star rating in C++ on HackerRank",
-      "Solved 250+ DSA problems across LeetCode & GeeksforGeeks",
-      "Completed certifications in Cloud Computing (NPTEL) and Web Development (IBM)",
+      "Evaluated AI-generated responses for reasoning quality and factual accuracy",
+      "Completed multiple AI training modules focused on model performance",
+      "Provided structured feedback through comparative analysis",
     ],
-    techUsed: ["DSA", "C++", "Problem Solving", "Cloud Computing"],
-    type: "education",
+    techUsed: ["AI Evaluation", "Model Training", "Quality Analysis"],
+    type: "work",
   },
 ];
+
+/* ────────────────────────────────────
+   Testimonials
+   ──────────────────────────────────── */
+
+export const testimonials: Testimonial[] = [
+  {
+    name: "Alignerr Team",
+    role: "AI Evaluation Platform",
+    content:
+      "Sangam demonstrated exceptional attention to detail in building YAML-based evaluation scenarios. His work achieved 95% accuracy in our automated QA system.",
+  },
+  {
+    name: "Outlier Platform",
+    role: "AI Training Service",
+    content:
+      "Sangam's comparative analysis and structured feedback significantly improved our model performance benchmarking process.",
+  },
+  {
+    name: "Academic Mentor",
+    role: "CS Professor at LPU",
+    content:
+      "Sangam stands out with his 5-Star C++ rating on HackerRank and 250+ solved DSA problems, showing exceptional problem-solving skills.",
+  },
+];
+
+/* ────────────────────────────────────
+   Terminal Commands
+   ──────────────────────────────────── */
 
 export const terminalCommands: Record<string, string> = {
   help: `
 Available commands:
   about       — Learn about me
   skills      — View my tech stack
-  projects    — List my projects
+  projects    — See my work
   contact     — Get my contact info
-  experience  — View my work history
   resume      — Download my resume
-  socials     — My social media links
+  socials     — My social links
+  education   — My academic background
+  experience  — Work experience
   clear       — Clear terminal
-  `,
+  matrix      — 🐇 Follow the white rabbit
+  whoami      — Who are you?
+  date        — Current date/time
+  quote       — Random dev quote
+`,
   about: `
-╔══════════════════════════════════════╗
-║  👨💻 Sangam Mehta                   ║
-║  Backend Developer                  ║
-║  📍 Phagwara, Punjab                ║
-║                                      ║
-║  Building scalable backend systems  ║
-╚══════════════════════════════════════╝
-  `,
+👋 Hi, I'm Sangam Mehta!
+A backend developer passionate about building
+scalable systems and elegant APIs.
+Currently based in Phagwara, Punjab 📍
+`,
   skills: `
-Backend:   Node.js ██████████░░ 90%
-           Express ████████░░░░ 88%
-Database:  PostgreSQL ████████░░░░ 85%
-           MongoDB ████████░░░░ 82%
-Languages: JavaScript ██████████░░ 92%
-           C++ ██████████░░ 90%
-  `,
+⚡ Core Skills:
+  → Node.js / Express.js / TypeScript
+  → PostgreSQL / MongoDB / Redis
+  → React / Next.js / Tailwind CSS
+  → Docker / AWS / Git
+`,
   projects: `
-[1] 🚀 FocusFlow        — Task Management SaaS
-[2] 🤖 AI Fashion       — AI-powered fashion analyzer
-[3] 🌾 AgroInnovate     — Farmer support platform
-  `,
-  contact: `
-📧 Email:    sangammehta44@gmail.com
-📱 Phone:    +91 7015052100
-🐙 GitHub:   github.com/Sangam44957
-💼 LinkedIn: linkedin.com/in/mehtasangam77
-  `,
-  experience: `
-[2025]      AI Evaluation Specialist @ Alignerr
-[2024-2025] AI Trainer @ Outlier
-[2023-Now]  B.Tech CS @ LPU (CGPA: 7.71)
-  `,
-  resume: `📄 Downloading resume... ✅ Opening in new tab!`,
-  socials: `
-🐙 GitHub:    github.com/Sangam44957
-💼 LinkedIn:  linkedin.com/in/mehtasangam77
-  `,
-};
+📂 Featured Projects:
+  [1] FocusFlow — Task Management SaaS
+  [2] AI Fashion Analyzer — Backend API
+  [3] AgroInnovate — Farmer Support Platform
+  [4] Stylized Character Walk Animation — Blender
 
-export const testimonials = [
-  {
-    name: "Sangam Mehta",
-    role: "Backend Developer",
-    content: "Passionate about building scalable backend systems and solving complex problems."
-  }
-];
+Type a number (1-4) to explore.
+`,
+  contact: `
+📬 Contact Info:
+  Email    → sangam@example.com
+  Phone    → +91 98765 43210
+  LinkedIn → linkedin.com/in/sangam-mehta
+  GitHub   → github.com/Sangam44957
+`,
+  resume: "📄 Opening resume in a new tab...",
+  socials: `
+🌐 Social Links:
+  GitHub    → github.com/Sangam44957
+  LinkedIn  → linkedin.com/in/sangam-mehta
+  Twitter   → twitter.com/sangammehta
+  Instagram → instagram.com/sangammehta
+`,
+  education: `
+🎓 B.Tech Computer Science (6th Semester, 3rd Year)
+   Lovely Professional University (2022–2026)
+   CGPA: 7.7 | Focus: Backend Engineering & System Design
+`,
+  experience: `
+💼 Freelance AI Evaluation @ Alignerr
+   Sep 2024 – Dec 2024
+   → Built YAML evaluation scenarios, tested LLMs,
+     achieved 95% QA accuracy
+
+💼 Freelance AI Trainer @ Outlier  
+   Aug 2024 – Aug 2024
+   → Evaluated AI responses, completed training modules
+
+🎓 B.Tech CS @ LPU (6th Sem, 3rd Year)
+   Aug 2022 – Present | CGPA: 7.7
+   → 250+ DSA problems, 5⭐ C++ HackerRank
+`,
+  matrix: "🐇 Entering the Matrix...",
+  whoami: "You are visitor. Welcome! 🌐",
+  date: new Date().toLocaleString(),
+  quote: `
+💡 "Any fool can write code that a computer can
+   understand. Good programmers write code that
+   humans can understand." — Martin Fowler
+`,
+};

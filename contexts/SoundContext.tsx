@@ -1,6 +1,10 @@
 "use client";
 
-import { createContext, useContext, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  type ReactNode,
+} from "react";
 import { useSound } from "@/hooks/useSound";
 
 type SoundType =
@@ -13,23 +17,26 @@ type SoundType =
   | "whoosh"
   | "error";
 
-type SoundContextType = {
+interface SoundContextValue {
   play: (sound: SoundType, volume?: number) => void;
   isMuted: boolean;
   toggleMute: () => void;
-};
+}
 
-const SoundContext = createContext<SoundContextType | undefined>(undefined);
+const SoundContext = createContext<SoundContextValue>({
+  play: () => {},
+  isMuted: true,
+  toggleMute: () => {},
+});
 
 export function SoundProvider({ children }: { children: ReactNode }) {
   const sound = useSound();
-  return <SoundContext.Provider value={sound}>{children}</SoundContext.Provider>;
+
+  return (
+    <SoundContext.Provider value={sound}>{children}</SoundContext.Provider>
+  );
 }
 
 export function useSoundContext() {
-  const context = useContext(SoundContext);
-  if (!context) {
-    throw new Error("useSoundContext must be used within SoundProvider");
-  }
-  return context;
+  return useContext(SoundContext);
 }

@@ -6,21 +6,21 @@ import { personalInfo } from "@/data/portfolio";
 import MagneticButton from "./MagneticButton";
 import ParticleField from "./ParticleField";
 import ScrambleText from "./ScrambleText";
-import {
-  FiGithub,
-  FiLinkedin,
-  FiTwitter,
-  FiArrowDown,
-  FiDownload,
-} from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiTwitter, FiArrowDown, FiDownload } from "react-icons/fi";
 
-const roles = [
+const ROLES = [
   "Full-Stack Developer",
   "UI/UX Enthusiast",
   "Open Source Contributor",
   "Problem Solver",
   "Coffee → Code Converter",
 ];
+
+const HERO_SOCIALS = [
+  { icon: FiGithub, url: personalInfo.socials.github, label: "GitHub" },
+  { icon: FiLinkedin, url: personalInfo.socials.linkedin, label: "LinkedIn" },
+  { icon: FiTwitter, url: personalInfo.socials.twitter, label: "Twitter" },
+] as const;
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -39,7 +39,7 @@ export default function Hero() {
 
   // Typing effect
   useEffect(() => {
-    const currentRole = roles[roleIndex];
+    const currentRole = ROLES[roleIndex];
     let timeout: NodeJS.Timeout;
 
     if (!isDeleting) {
@@ -57,12 +57,16 @@ export default function Hero() {
         }, 40);
       } else {
         setIsDeleting(false);
-        setRoleIndex((prev) => (prev + 1) % roles.length);
+        setRoleIndex((prev) => (prev + 1) % ROLES.length);
       }
     }
 
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, roleIndex]);
+
+  const scrollToProjects = () => {
+    document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section
@@ -70,13 +74,15 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Particle Background */}
       <ParticleField />
 
-      {/* Radial gradient overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#050505_70%)] z-[1]" />
-
-      {/* Grid overlay */}
+      {/* Radial gradient overlay — adapts to theme */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at center, transparent 0%, var(--nexus-bg, #050505) 70%)",
+        }}
+      />
       <div className="absolute inset-0 grid-bg opacity-20 z-[1]" />
 
       {/* Main Content */}
@@ -95,9 +101,7 @@ export default function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-nexus-green opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-nexus-green" />
           </span>
-          <span className="text-sm font-mono text-nexus-muted">
-            Available for opportunities
-          </span>
+          <span className="text-sm font-mono text-nexus-muted">Available for opportunities</span>
         </motion.div>
 
         {/* Greeting */}
@@ -107,9 +111,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
-          <span className="text-nexus-accent font-mono text-lg">
-            {"// Hello, World! I'm"}
-          </span>
+          <span className="text-nexus-accent font-mono text-lg">{"// Hello, World! I'm"}</span>
         </motion.div>
 
         {/* Name */}
@@ -140,9 +142,7 @@ export default function Hero() {
             <span className="w-3 h-3 rounded-full bg-nexus-accent/20 flex items-center justify-center">
               <span className="w-1.5 h-1.5 rounded-full bg-nexus-accent" />
             </span>
-            <span className="font-mono text-nexus-text text-lg">
-              {displayText}
-            </span>
+            <span className="font-mono text-nexus-text text-lg">{displayText}</span>
             <motion.span
               className="w-[2px] h-6 bg-nexus-accent"
               animate={{ opacity: [1, 0] }}
@@ -168,26 +168,12 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.4, duration: 0.6 }}
         >
-          <MagneticButton
-            onClick={() =>
-              document
-                .querySelector("#projects")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-            variant="primary"
-            size="lg"
-            dataCursorText="VIEW"
-          >
+          <MagneticButton onClick={scrollToProjects} variant="primary" size="lg" dataCursorText="VIEW">
             <span className="w-2 h-2 rounded-full bg-nexus-accent animate-pulse" />
             View My Work
           </MagneticButton>
 
-          <MagneticButton
-            href={personalInfo.resumeUrl}
-            variant="secondary"
-            size="lg"
-            dataCursorText="PDF"
-          >
+          <MagneticButton href={personalInfo.resumeUrl} variant="secondary" size="lg" dataCursorText="PDF">
             <FiDownload className="w-4 h-4" />
             Resume
           </MagneticButton>
@@ -200,11 +186,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.6, duration: 0.6 }}
         >
-          {[
-            { icon: FiGithub, url: personalInfo.socials.github, label: "GitHub" },
-            { icon: FiLinkedin, url: personalInfo.socials.linkedin, label: "LinkedIn" },
-            { icon: FiTwitter, url: personalInfo.socials.twitter, label: "Twitter" },
-          ].map(({ icon: Icon, url, label }) => (
+          {HERO_SOCIALS.map(({ icon: Icon, url, label }) => (
             <motion.a
               key={label}
               href={url}
@@ -228,9 +210,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 0.6 }}
       >
-        <span className="text-xs font-mono text-nexus-muted/50 uppercase tracking-widest">
-          Scroll
-        </span>
+        <span className="text-xs font-mono text-nexus-muted/50 uppercase tracking-widest">Scroll</span>
         <motion.div
           className="w-6 h-10 rounded-full border border-nexus-border/30 flex items-start justify-center p-1.5"
           animate={{ y: [0, 5, 0] }}
@@ -245,7 +225,7 @@ export default function Hero() {
         <FiArrowDown className="w-3 h-3 text-nexus-muted/30 animate-bounce" />
       </motion.div>
 
-      {/* Decorative elements */}
+      {/* Decorative lines */}
       <div className="absolute top-1/4 left-12 w-[1px] h-32 bg-gradient-to-b from-transparent via-nexus-accent/20 to-transparent hidden lg:block" />
       <div className="absolute top-1/3 right-12 w-[1px] h-32 bg-gradient-to-b from-transparent via-nexus-accentAlt/20 to-transparent hidden lg:block" />
     </section>

@@ -44,7 +44,7 @@ function AnimatedCounter({
 const QUICK_INFO = [
   { label: "Location", value: personalInfo.location, icon: "📍" },
   { label: "Email", value: personalInfo.email, icon: "📧" },
-  { label: "Experience", value: "3+ years", icon: "💼" },
+  { label: "Experience", value: "Fresher (3rd Year)", icon: "💼" },
   { label: "Status", value: "Open to work", icon: "🟢" },
 ] as const;
 
@@ -86,7 +86,7 @@ export default function About() {
             {/* Avatar */}
             <div className="absolute inset-3 rounded-full overflow-hidden glass">
               <div className="w-full h-full bg-gradient-to-br from-nexus-accent/20 via-nexus-accentAlt/20 to-nexus-pink/20 flex items-center justify-center">
-                <span className="text-6xl">👨💻</span>
+                <span className="text-6xl">👨‍💻</span>
               </div>
             </div>
 

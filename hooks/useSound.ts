@@ -28,7 +28,7 @@ function createAudioContext(): AudioContext | null {
 /** Sound file manifest — single source of truth */
 const SOUND_FILES: Partial<Record<SoundType, string>> = {
   click: "/sounds/click.wav",
-  hover: "/sounds/hove.wav",
+  hover: "/sounds/hover.wav",
   type: "/sounds/type.wav",
   success: "/sounds/success.wav",
   toggle: "/sounds/toggle.wav",
@@ -109,7 +109,10 @@ export function useSound() {
       const now = ctx.currentTime;
       gainNode.gain.setValueAtTime(0, now);
 
-      const configs: Record<SoundType, () => { duration: number }> = {
+      const configs: Record<
+        SoundType,
+        () => { duration: number }
+      > = {
         click: () => {
           oscillator.frequency.setValueAtTime(800, now);
           oscillator.frequency.exponentialRampToValueAtTime(400, now + 0.05);
