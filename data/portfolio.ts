@@ -328,20 +328,90 @@ Currently based in Phagwara, Punjab 📍
 
 Type a number (1-4) to explore.
 `,
+  "1": `
+📂 FocusFlow
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Task Management SaaS built with PERN stack
+
+🔧 Tech Stack:
+  → Node.js, Express.js, PostgreSQL, React
+  → JWT Authentication, Google OAuth 2.0
+
+✨ Features:
+  → Optimized PostgreSQL queries (30% faster)
+  → Secure authentication system
+  → Real-time task management
+
+🔗 Links:
+  Live: https://focusflow-drab.vercel.app/
+  Code: https://github.com/Sangam44957/focusflow
+`,
+  "2": `
+📂 AI Fashion Analyzer
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Backend API service using Flask and Gemini API
+
+🔧 Tech Stack:
+  → Python, Flask, Gemini API
+  → REST API, Async Processing
+
+✨ Features:
+  → Image upload and AI predictions
+  → 85% accuracy in fashion analysis
+  → Async processing for performance
+
+🔗 Links:
+  Code: https://github.com/Sangam44957/AI-Trend-Analyzer
+`,
+  "3": `
+📂 AgroInnovate
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Farmer Support Platform with real-time data
+
+🔧 Tech Stack:
+  → PHP, JavaScript, REST API
+  → API Caching, Async Patterns
+
+✨ Features:
+  → Real-time government API integration
+  → 20% faster response time
+  → Efficient data aggregation
+
+🔗 Links:
+  Code: https://github.com/Sangam44957/AgroInnovate-1
+`,
+  "4": `
+📂 Stylized Character Walk Animation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3D character animation in Blender
+
+🔧 Tech Stack:
+  → Blender, 3D Animation
+  → Keyframe Animation, Eevee/Cycles
+
+✨ Features:
+  → Walk cycle on miniature planet
+  → Armature-based animation
+  → Optimized rendering
+
+🔗 Links:
+  Video: https://drive.google.com/drive/folders/10EGZdVVf8ZKDKtnZT3cnXHma48o0Pl03
+  Code: https://github.com/Sangam44957/stylized-character-walk-animation-blender
+`,
   contact: `
 📬 Contact Info:
-  Email    → sangam@example.com
-  Phone    → +91 98765 43210
-  LinkedIn → linkedin.com/in/sangam-mehta
+  Email    → sangammehta44@gmail.com
+  Phone    → +91 7015052100
+  LinkedIn → linkedin.com/in/mehtasangam77
   GitHub   → github.com/Sangam44957
 `,
   resume: "📄 Opening resume in a new tab...",
   socials: `
 🌐 Social Links:
   GitHub    → github.com/Sangam44957
-  LinkedIn  → linkedin.com/in/sangam-mehta
-  Twitter   → twitter.com/sangammehta
-  Instagram → instagram.com/sangammehta
+  LinkedIn  → linkedin.com/in/mehtasangam77
+  Twitter   → x.com/Sangam6931
+  Instagram → instagram.com/sangam.mehta.104
 `,
   education: `
 🎓 B.Tech Computer Science (6th Semester, 3rd Year)

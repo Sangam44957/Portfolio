@@ -70,8 +70,10 @@ export default function Terminal() {
     }
 
     if (/^[1-4]$/.test(trimmed)) {
-      const idx = parseInt(trimmed) - 1;
-      newLines.push({ type: "output", content: `\n📂 ${PROJECT_NAMES[idx]}\nOpening project details...\n` });
+      const response = terminalCommands[trimmed];
+      if (response) {
+        newLines.push({ type: "output", content: response });
+      }
       setLines(newLines);
       return;
     }
