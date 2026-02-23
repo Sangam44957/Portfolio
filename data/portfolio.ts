@@ -120,7 +120,7 @@ export const stats: Stat[] = [
   { label: "Projects Completed", value: 4, suffix: "+" },
   { label: "DSA Problems", value: 250, suffix: "+" },
   { label: "HackerRank Rating", value: 5, suffix: "⭐" },
-  { label: "CGPA", value: 7.7, suffix: "/10" },
+  { label: "CGPA", value: 7.71, suffix: "/10" },
 ];
 
 /* ────────────────────────────────────
@@ -167,7 +167,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Sangam44957/focusflow",
     category: "fullstack",
     color: "#00f0ff",
-    year: "2025",
+    year: "Oct 2025 – Dec 2025",
     featured: true,
   },
   {
@@ -180,7 +180,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Sangam44957/AI-Trend-Analyzer",
     category: "ai",
     color: "#7b61ff",
-    year: "2025",
+    year: "Mar 2025 – Apr 2025",
     featured: true,
   },
   {
@@ -193,7 +193,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Sangam44957/AgroInnovate-1",
     category: "backend",
     color: "#ff006e",
-    year: "2025",
+    year: "Feb 2025 – Mar 2025",
     featured: true,
   },
   {
@@ -218,42 +218,42 @@ export const projects: Project[] = [
 export const experiences: Experience[] = [
   {
     id: "exp-1",
-    role: "B.Tech Computer Science (6th Semester)",
+    role: "B.Tech Computer Science",
     company: "Lovely Professional University",
     companyUrl: "https://lpu.in",
-    duration: "Aug 2022 – Present (3rd Year)",
+    duration: "Aug 2023 – Present",
     description: [
-      "CGPA: 7.7 - Specializing in backend engineering and system design",
-      "Solved 250+ DSA problems on LeetCode and GeeksforGeeks",
-      "Achieved 5-Star rating in C++ on HackerRank",
+      "CGPA: 7.71 - Specializing in backend engineering and system design",
+      "Solved 250+ DSA problems on LeetCode and GeeksforGeeks (Since Jan 2026)",
+      "Achieved 5-Star rating in C++ on HackerRank (Since Jan 2026)",
     ],
     techUsed: ["C++", "Python", "JavaScript", "Data Structures", "Algorithms"],
     type: "education",
   },
   {
     id: "exp-2",
-    role: "AI Evaluation Specialist (Freelance)",
+    role: "AI Evaluation Specialist",
     company: "Alignerr",
     companyUrl: "https://alignerr.com",
-    duration: "Sep 2024 – Dec 2024",
+    duration: "Sep 2025 – Dec 2025",
     description: [
       "Built YAML-based evaluation scenarios testing implicit reasoning in AI assistants",
-      "Designed test cases identifying reasoning gaps across frontier LLMs",
-      "Achieved 95% accuracy in automated QA system validations",
+      "Designed test cases identifying reasoning gaps across frontier LLMs like GPT-5, Claude, and Gemini",
+      "Validated work through automated QA system with 95% accuracy",
     ],
     techUsed: ["YAML", "AI Testing", "LLM Evaluation"],
     type: "work",
   },
   {
     id: "exp-3",
-    role: "AI Trainer (Freelance)",
+    role: "AI Trainer",
     company: "Outlier",
     companyUrl: "https://outlier.ai",
-    duration: "Aug 2024 – Aug 2024",
+    duration: "Aug 2024 – Aug 2025",
     description: [
-      "Evaluated AI-generated responses for reasoning quality and factual accuracy",
-      "Completed multiple AI training modules focused on model performance",
-      "Provided structured feedback through comparative analysis",
+      "Evaluated AI-generated responses to enhance reasoning quality and factual accuracy",
+      "Completed multiple AI training modules focused on model performance benchmarking",
+      "Identified low-quality outputs through comparative analysis with structured feedback",
     ],
     techUsed: ["AI Evaluation", "Model Training", "Quality Analysis"],
     type: "work",
@@ -414,23 +414,23 @@ Farmer Support Platform with real-time data
   Instagram → instagram.com/sangam.mehta.104
 `,
   education: `
-🎓 B.Tech Computer Science (6th Semester, 3rd Year)
-   Lovely Professional University (2022–2026)
-   CGPA: 7.7 | Focus: Backend Engineering & System Design
+🎓 B.Tech Computer Science
+   Lovely Professional University (Aug 2023 – Present)
+   CGPA: 7.71 | Focus: Backend Engineering & System Design
 `,
   experience: `
-💼 Freelance AI Evaluation @ Alignerr
-   Sep 2024 – Dec 2024
+💼 AI Evaluation Specialist @ Alignerr
+   Sep 2025 – Dec 2025
    → Built YAML evaluation scenarios, tested LLMs,
      achieved 95% QA accuracy
 
-💼 Freelance AI Trainer @ Outlier  
-   Aug 2024 – Aug 2024
+💼 AI Trainer @ Outlier  
+   Aug 2024 – Aug 2025
    → Evaluated AI responses, completed training modules
 
-🎓 B.Tech CS @ LPU (6th Sem, 3rd Year)
-   Aug 2022 – Present | CGPA: 7.7
-   → 250+ DSA problems, 5⭐ C++ HackerRank
+🎓 B.Tech CS @ LPU
+   Aug 2023 – Present | CGPA: 7.71
+   → 250+ DSA problems, 5⭐ C++ HackerRank (Since Jan 2026)
 `,
   matrix: "🐇 Entering the Matrix...",
   whoami: "You are visitor. Welcome! 🌐",
