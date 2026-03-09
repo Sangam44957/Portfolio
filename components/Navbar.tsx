@@ -12,6 +12,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [hoveredSection, setHoveredSection] = useState<string | null>(null);
   const [isHidden, setIsHidden] = useState(false);
   const { scrollY } = useScroll();
   const { play } = useSoundContext();
@@ -23,29 +24,63 @@ export default function Navbar() {
   });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Find the entry with the highest intersection ratio
-        const visibleEntries = entries.filter(entry => entry.isIntersecting);
-        if (visibleEntries.length > 0) {
-          const mostVisible = visibleEntries.reduce((prev, current) => 
-            current.intersectionRatio > prev.intersectionRatio ? current : prev
-          );
-          setActiveSection(mostVisible.target.id);
+    const sectionElements = navLinks
+      .map(({ href }) => document.querySelector(href) as HTMLElement | null)
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    if (sectionElements.length === 0) return;
+
+    const updateActiveSection = () => {
+      // Track the section that sits around the upper-middle viewport area.
+      const focusLine = window.innerHeight * 0.35;
+
+      let nextActive = sectionElements[0]?.id ?? "home";
+      let smallestDistance = Number.POSITIVE_INFINITY;
+
+      sectionElements.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+
+        // Prefer the section that currently contains the focus line.
+        if (rect.top <= focusLine && rect.bottom >= focusLine) {
+          nextActive = section.id;
+          smallestDistance = 0;
+          return;
         }
+
+        const distance = Math.min(
+          Math.abs(rect.top - focusLine),
+          Math.abs(rect.bottom - focusLine),
+        );
+
+        if (distance < smallestDistance) {
+          smallestDistance = distance;
+          nextActive = section.id;
+        }
+      });
+
+      setActiveSection(nextActive);
+    };
+
+    const observer = new IntersectionObserver(
+      () => {
+        updateActiveSection();
       },
-      { 
-        rootMargin: "-20% 0px -50% 0px",
-        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+      {
+        rootMargin: "-45% 0px -45% 0px",
+        threshold: 0,
       },
     );
 
-    navLinks.forEach(({ href }) => {
-      const el = document.querySelector(href);
-      if (el) observer.observe(el);
-    });
+    sectionElements.forEach((el) => observer.observe(el));
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    updateActiveSection();
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -81,13 +116,19 @@ export default function Navbar() {
           </motion.a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div
+            className="hidden md:flex items-center gap-1"
+            onMouseLeave={() => setHoveredSection(null)}
+          >
             {navLinks.map(({ label, href }) => {
-              const isActive = activeSection === href.replace("#", "");
+              const sectionId = href.replace("#", "");
+              const currentSection = hoveredSection ?? activeSection;
+              const isActive = currentSection === sectionId;
               return (
                 <motion.button
                   key={href}
                   onClick={() => handleNavClick(href)}
+                  onMouseEnter={() => setHoveredSection(sectionId)}
                   className={`relative px-4 py-2 text-sm font-mono transition-colors duration-300 rounded-full ${
                     isActive ? "text-nexus-accent" : "text-nexus-muted hover:text-nexus-text"
                   }`}

@@ -23,21 +23,58 @@ export default function MobileNav() {
   }, []);
 
   useEffect(() => {
+    const sectionElements = LINKS
+      .map(({ href }) => document.querySelector(href) as HTMLElement | null)
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    if (sectionElements.length === 0) return;
+
+    const updateActiveSection = () => {
+      const focusLine = window.innerHeight * 0.45;
+
+      let nextActive = sectionElements[0]?.id ?? "home";
+      let smallestDistance = Number.POSITIVE_INFINITY;
+
+      sectionElements.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+
+        if (rect.top <= focusLine && rect.bottom >= focusLine) {
+          nextActive = section.id;
+          smallestDistance = 0;
+          return;
+        }
+
+        const distance = Math.min(
+          Math.abs(rect.top - focusLine),
+          Math.abs(rect.bottom - focusLine),
+        );
+
+        if (distance < smallestDistance) {
+          smallestDistance = distance;
+          nextActive = section.id;
+        }
+      });
+
+      setActiveSection(nextActive);
+    };
+
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
+      () => {
+        updateActiveSection();
       },
-      { rootMargin: "-40% 0px -40% 0px" },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
     );
 
-    LINKS.forEach(({ href }) => {
-      const el = document.querySelector(href);
-      if (el) observer.observe(el);
-    });
+    sectionElements.forEach((el) => observer.observe(el));
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    updateActiveSection();
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, []);
 
   return (
