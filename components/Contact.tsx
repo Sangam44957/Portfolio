@@ -59,7 +59,7 @@ export default function Contact() {
       id="contact"
       title="Let's Connect"
       subtitle="Got a project in mind? Or just want to say hi? I'd love to hear from you."
-      number="06"
+      number="08"
     >
       <div ref={ref} className="grid lg:grid-cols-2 gap-16">
         {/* Left — Info */}

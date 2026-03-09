@@ -58,6 +58,20 @@ export interface Experience {
   type: "work" | "education" | "achievement";
 }
 
+export interface Certification {
+  name: string;
+  issuer: string;
+  date: string;
+  verifyUrl: string;
+}
+
+export interface Achievement {
+  title: string;
+  description: string;
+  date: string;
+  icon: string;
+}
+
 export interface Testimonial {
   name: string;
   role: string;
@@ -109,6 +123,8 @@ export const navLinks: NavLink[] = [
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
+  { label: "Certifications", href: "#certifications" },
+  { label: "Achievements", href: "#achievements" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -261,6 +277,44 @@ export const experiences: Experience[] = [
 ];
 
 /* ────────────────────────────────────
+   Certifications
+   ──────────────────────────────────── */
+
+export const certifications: Certification[] = [
+  {
+    name: "Introduction to HTML, CSS & JavaScript",
+    issuer: "IBM & Coursera",
+    date: "Nov 2025",
+    verifyUrl: "#",
+  },
+  {
+    name: "Cloud Computing",
+    issuer: "NPTEL",
+    date: "July 2025",
+    verifyUrl: "#",
+  },
+];
+
+/* ────────────────────────────────────
+   Achievements
+   ──────────────────────────────────── */
+
+export const achievements: Achievement[] = [
+  {
+    title: "5-Star C++ Rating on HackerRank",
+    description: "Achieved 5-Star rating in C++ on HackerRank, demonstrating strong language proficiency",
+    date: "Since Jan 2026",
+    icon: "⭐",
+  },
+  {
+    title: "250+ DSA Problems Solved",
+    description: "Solved 250+ Data Structures & Algorithms problems across LeetCode & GeeksforGeeks",
+    date: "Since Jan 2026",
+    icon: "🏆",
+  },
+];
+
+/* ────────────────────────────────────
    Testimonials
    ──────────────────────────────────── */
 
@@ -292,19 +346,21 @@ export const testimonials: Testimonial[] = [
 export const terminalCommands: Record<string, string> = {
   help: `
 Available commands:
-  about       — Learn about me
-  skills      — View my tech stack
-  projects    — See my work
-  contact     — Get my contact info
-  resume      — Download my resume
-  socials     — My social links
-  education   — My academic background
-  experience  — Work experience
-  clear       — Clear terminal
-  matrix      — 🐇 Follow the white rabbit
-  whoami      — Who are you?
-  date        — Current date/time
-  quote       — Random dev quote
+  about          — Learn about me
+  skills         — View my tech stack
+  projects       — See my work
+  contact        — Get my contact info
+  resume         — Download my resume
+  socials        — My social links
+  education      — My academic background
+  experience     — Work experience
+  certifications — My certifications
+  achievements   — My achievements
+  clear          — Clear terminal
+  matrix         — 🐇 Follow the white rabbit
+  whoami         — Who are you?
+  date           — Current date/time
+  quote          — Random dev quote
 `,
   about: `
 👋 Hi, I'm Sangam Mehta!
@@ -439,5 +495,21 @@ Farmer Support Platform with real-time data
 💡 "Any fool can write code that a computer can
    understand. Good programmers write code that
    humans can understand." — Martin Fowler
+`,
+  certifications: `
+📜 Certifications:
+  [1] Introduction to HTML, CSS & JavaScript
+      IBM & Coursera | Nov 2025
+  
+  [2] Cloud Computing
+      NPTEL | July 2025
+`,
+  achievements: `
+🏆 Achievements:
+  ⭐ 5-Star C++ Rating on HackerRank
+     Since Jan 2026
+  
+  🏆 250+ DSA Problems Solved
+     LeetCode & GeeksforGeeks | Since Jan 2026
 `,
 };

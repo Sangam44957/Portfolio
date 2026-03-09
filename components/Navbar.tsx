@@ -26,10 +26,12 @@ export default function Navbar() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
         });
       },
-      { rootMargin: "-50% 0px -50% 0px" },
+      { rootMargin: "-100px 0px -66% 0px", threshold: 0 },
     );
 
     navLinks.forEach(({ href }) => {

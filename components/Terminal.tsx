@@ -122,7 +122,7 @@ export default function Terminal() {
   if (!isVisible) return null;
 
   return (
-    <SectionWrapper id="terminal" title="Terminal" subtitle="An interactive way to explore — try typing some commands!" number="05" className="relative">
+    <SectionWrapper id="terminal" title="Terminal" subtitle="An interactive way to explore — try typing some commands!" number="07" className="relative">
       {/* Matrix Rain */}
       <AnimatePresence>
         {matrixMode && (

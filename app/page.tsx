@@ -25,7 +25,8 @@ const About = dynamic(() => import("@/components/About"));
 const Skills = dynamic(() => import("@/components/Skills"));
 const Projects = dynamic(() => import("@/components/Projects"));
 const Experience = dynamic(() => import("@/components/Experience"));
-const Testimonials = dynamic(() => import("@/components/Testimonials"));
+const Certifications = dynamic(() => import("@/components/Certifications"));
+const Achievements = dynamic(() => import("@/components/Achievements"));
 const Terminal = dynamic(() => import("@/components/Terminal"));
 const Contact = dynamic(() => import("@/components/Contact"));
 const GitHubHeatmap = dynamic(() => import("@/components/GitHubHeatmap"));
@@ -144,7 +145,8 @@ export default function Home() {
             <Divider />
             <Projects />
             <Experience />
-            <Testimonials />
+            <Certifications />
+            <Achievements />
             <Terminal />
             <Divider />
             <Contact />
