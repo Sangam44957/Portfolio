@@ -15,7 +15,7 @@ import {
 } from "react-icons/fi";
 
 const SOCIALS = [
-  { icon: FiGithub, url: personalInfo.socials.github, label: "GitHub", color: "#ffffff" },
+  { icon: FiGithub, url: personalInfo.socials.github, label: "GitHub", color: "#24292e" },
   { icon: FiLinkedin, url: personalInfo.socials.linkedin, label: "LinkedIn", color: "#0A66C2" },
   { icon: FiTwitter, url: personalInfo.socials.twitter, label: "Twitter", color: "#1DA1F2" },
   { icon: FiInstagram, url: personalInfo.socials.instagram, label: "Instagram", color: "#E4405F" },
