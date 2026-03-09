@@ -21,16 +21,20 @@ export default function Navbar() {
     const previous = scrollY.getPrevious() ?? 0;
     setIsHidden(latest > previous && latest > 150);
     setIsScrolled(latest > 50);
+    // Keep scroll-driven active state authoritative while moving the page.
+    setHoveredSection(null);
   });
 
   useEffect(() => {
-    const sectionElements = navLinks
-      .map(({ href }) => document.querySelector(href) as HTMLElement | null)
-      .filter((el): el is HTMLElement => Boolean(el));
-
-    if (sectionElements.length === 0) return;
+    const getSectionElements = () =>
+      navLinks
+        .map(({ href }) => document.querySelector(href) as HTMLElement | null)
+        .filter((el): el is HTMLElement => Boolean(el));
 
     const updateActiveSection = () => {
+      const sectionElements = getSectionElements();
+      if (sectionElements.length === 0) return;
+
       // Track the section that sits around the upper-middle viewport area.
       const focusLine = window.innerHeight * 0.35;
 
@@ -61,23 +65,17 @@ export default function Navbar() {
       setActiveSection(nextActive);
     };
 
-    const observer = new IntersectionObserver(
-      () => {
-        updateActiveSection();
-      },
-      {
-        rootMargin: "-45% 0px -45% 0px",
-        threshold: 0,
-      },
-    );
-
-    sectionElements.forEach((el) => observer.observe(el));
     window.addEventListener("scroll", updateActiveSection, { passive: true });
     window.addEventListener("resize", updateActiveSection);
     updateActiveSection();
 
+    // Re-check after lazy sections mount.
+    const lateCheckA = window.setTimeout(updateActiveSection, 300);
+    const lateCheckB = window.setTimeout(updateActiveSection, 1200);
+
     return () => {
-      observer.disconnect();
+      window.clearTimeout(lateCheckA);
+      window.clearTimeout(lateCheckB);
       window.removeEventListener("scroll", updateActiveSection);
       window.removeEventListener("resize", updateActiveSection);
     };
