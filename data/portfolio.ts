@@ -291,14 +291,14 @@ export const certifications: Certification[] = [
     name: "Introduction to HTML, CSS & JavaScript",
     issuer: "IBM & Coursera",
     date: "Nov 2025",
-    verifyUrl: "https://www.coursera.org/account/accomplishments/verify/YOUR_CERT_ID",
+    verifyUrl: "https://www.coursera.org/account/accomplishments/verify/KNFYCEQ10457",
     techLearned: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
   },
   {
     name: "Cloud Computing",
     issuer: "NPTEL",
     date: "July 2025",
-    verifyUrl: "https://nptel.ac.in/noc/YOUR_CERT_ID",
+    verifyUrl: "https://archive.nptel.ac.in/content/noc/NOC25/SEM2/Ecertificates/106/noc25-cs107/Course/NPTEL25CS107S135870001910815629.pdf",
     techLearned: ["AWS", "Cloud Architecture", "Virtualization", "Docker"],
   },
 ];
@@ -359,15 +359,16 @@ Available commands:
   about          — Learn about me
   skills         — View my tech stack
   projects       — See my work
+  certifications — My certifications
+  achievements   — My achievements
   contact        — Get my contact info
   resume         — Download my resume
   socials        — My social links
   education      — My academic background
   experience     — Work experience
-  certifications — My certifications
-  achievements   — My achievements
+  stats          — Quick stats overview
   clear          — Clear terminal
-  matrix         — 🐇 Follow the white rabbit
+  matrix         — 🚀 Enter the code matrix
   whoami         — Who are you?
   date           — Current date/time
   quote          — Random dev quote
@@ -498,7 +499,20 @@ Farmer Support Platform with real-time data
    Aug 2023 – Present | CGPA: 7.71
    → 250+ DSA problems, 5⭐ C++ HackerRank (Since Jan 2026)
 `,
-  matrix: "🐇 Entering the Matrix...",
+  stats: `
+📊 Quick Stats Overview
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🎯 Projects Completed      → 4+
+  💻 DSA Problems Solved     → 250+
+  ⭐ HackerRank C++ Rating   → 5-Star
+  🎓 CGPA                    → 7.71/10
+  📜 Certifications          → 2
+  🏆 Achievements            → 2
+  💼 Work Experience         → 2 roles
+  🌐 Tech Stack              → 20+ technologies
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+`,
+  matrix: "🚀 Entering the code matrix...",
   whoami: "You are visitor. Welcome! 🌐",
   date: new Date().toLocaleString(),
   quote: `
@@ -513,16 +527,66 @@ Farmer Support Platform with real-time data
   
   [2] Cloud Computing
       NPTEL | July 2025
+
+Type a number (1-2) to view certificate.
+`,
+  "cert-1": `
+📜 Introduction to HTML, CSS & JavaScript
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Issued by: IBM & Coursera
+Date: Nov 2025
+
+🔧 Tech Learned:
+  → HTML5, CSS3, JavaScript
+  → Responsive Design
+
+🔗 Verify:
+  https://www.coursera.org/account/accomplishments/verify/KNFYCEQ10457
+`,
+  "cert-2": `
+📜 Cloud Computing
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Issued by: NPTEL
+Date: July 2025
+
+🔧 Tech Learned:
+  → AWS, Cloud Architecture
+  → Virtualization, Docker
+
+🔗 Verify:
+  https://archive.nptel.ac.in/content/noc/NOC25/SEM2/Ecertificates/106/noc25-cs107/Course/NPTEL25CS107S135870001910815629.pdf
 `,
   achievements: `
 🏆 Achievements:
-  ⭐ 5-Star C++ Rating on HackerRank
-     Since Jan 2026
-     Link: https://www.hackerrank.com/profile/sangammehta44
+  [1] 5-Star C++ Rating on HackerRank
+      Since Jan 2026
   
-  🏆 250+ DSA Problems Solved
-     LeetCode & GeeksforGeeks | Since Jan 2026
-     LeetCode: https://leetcode.com/u/SangamMehta/
-     GFG: https://www.geeksforgeeks.org/profile/sangammxm4nh
+  [2] 250+ DSA Problems Solved
+      LeetCode & GeeksforGeeks | Since Jan 2026
+
+Type a number (1-2) to view details.
+`,
+  "achievement-1": `
+🏆 5-Star C++ Rating on HackerRank
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Achieved 5-Star rating in C++ on HackerRank,
+demonstrating strong language proficiency
+
+📅 Date: Since Jan 2026
+
+🔗 Profile:
+  https://www.hackerrank.com/profile/sangammehta44
+`,
+  "achievement-2": `
+🏆 250+ DSA Problems Solved
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Solved 250+ Data Structures & Algorithms problems
+across LeetCode & GeeksforGeeks
+
+📅 Date: Since Jan 2026
+
+🔗 Profiles:
+  LeetCode: https://leetcode.com/u/SangamMehta/
+  GFG: https://www.geeksforgeeks.org/profile/sangammxm4nh
 `,
 };

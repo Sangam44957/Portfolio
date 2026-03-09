@@ -40,6 +40,16 @@ export default function Terminal() {
     }
   }, [lines]);
 
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && matrixMode) {
+        setMatrixMode(false);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [matrixMode]);
+
   const processCommand = (cmd: string) => {
     const trimmed = cmd.trim().toLowerCase();
     const newLines: TerminalLine[] = [...lines, { type: "input", content: cmd }];
@@ -63,16 +73,48 @@ export default function Terminal() {
 
     if (trimmed === "matrix") {
       setMatrixMode(true);
-      setTimeout(() => setMatrixMode(false), 5000);
+      setTimeout(() => setMatrixMode(false), 6000);
       newLines.push({ type: "output", content: terminalCommands.matrix });
       setLines(newLines);
       return;
     }
 
-    if (/^[1-4]$/.test(trimmed)) {
+    if (trimmed === "stats") {
       const response = terminalCommands[trimmed];
       if (response) {
         newLines.push({ type: "output", content: response });
+      }
+      setLines(newLines);
+      return;
+    }
+
+    // Check if last command was 'projects', 'certifications', or 'achievements'
+    const lastCommand = lines.filter(l => l.type === 'input').slice(-1)[0]?.content.toLowerCase();
+    
+    if (/^[1-4]$/.test(trimmed)) {
+      let response = null;
+      
+      // If previous command was certifications and number is 1-2
+      if (lastCommand === 'certifications' && /^[1-2]$/.test(trimmed)) {
+        response = terminalCommands[`cert-${trimmed}`];
+      }
+      // If previous command was achievements and number is 1-2
+      else if (lastCommand === 'achievements' && /^[1-2]$/.test(trimmed)) {
+        response = terminalCommands[`achievement-${trimmed}`];
+      }
+      // If previous command was projects and number is 1-4
+      else if (lastCommand === 'projects') {
+        response = terminalCommands[trimmed];
+      }
+      // Default: treat as project
+      else {
+        response = terminalCommands[trimmed];
+      }
+      
+      if (response) {
+        newLines.push({ type: "output", content: response });
+      } else {
+        newLines.push({ type: "error", content: `Invalid number for ${lastCommand || 'this context'}.` });
       }
       setLines(newLines);
       return;
@@ -123,35 +165,81 @@ export default function Terminal() {
 
   return (
     <SectionWrapper id="terminal" title="Terminal" subtitle="An interactive way to explore — try typing some commands!" number="07" className="relative">
-      {/* Matrix Rain */}
+      {/* Matrix Code Rain */}
       <AnimatePresence>
         {matrixMode && (
           <motion.div
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center overflow-hidden"
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center overflow-hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="absolute inset-0 font-mono text-green-500 text-xs overflow-hidden opacity-30">
-              {Array.from({ length: 50 }).map((_, col) => (
+            {/* Falling code */}
+            <div className="absolute inset-0 font-mono text-green-400 text-xs overflow-hidden opacity-40">
+              {Array.from({ length: 60 }).map((_, col) => (
                 <motion.div
                   key={col}
                   className="absolute top-0 whitespace-nowrap"
-                  style={{ left: `${col * 2}%`, writingMode: "vertical-rl" }}
-                  animate={{ y: ["0vh", "100vh"] }}
-                  transition={{ duration: 2 + Math.random() * 3, repeat: Infinity, ease: "linear", delay: Math.random() * 2 }}
+                  style={{ left: `${col * 1.8}%`, writingMode: "vertical-rl" }}
+                  animate={{ y: ["0vh", "110vh"] }}
+                  transition={{ 
+                    duration: 2 + Math.random() * 4, 
+                    repeat: Infinity, 
+                    ease: "linear", 
+                    delay: Math.random() * 3 
+                  }}
                 >
-                  {Array.from({ length: 30 }).map(() => String.fromCharCode(0x30a0 + Math.random() * 96)).join("")}
+                  {Array.from({ length: 40 }).map(() => 
+                    ['const', 'let', 'function', '{}', '()', '=>', 'async', 'await', '0', '1'][Math.floor(Math.random() * 10)]
+                  ).join(' ')}
                 </motion.div>
               ))}
             </div>
-            <motion.p
-              className="text-green-400 font-mono text-2xl z-10"
-              animate={{ opacity: [0, 1, 0, 1] }}
-              transition={{ duration: 2 }}
-            >
-              Wake up, Neo...
-            </motion.p>
+
+            {/* Center messages */}
+            <div className="relative z-10 text-center space-y-6">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+              >
+                <div className="text-green-400 font-mono text-4xl md:text-5xl font-bold mb-4">
+                  <motion.span
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    &lt;/&gt;
+                  </motion.span>
+                </div>
+                <motion.p
+                  className="text-green-300 font-mono text-xl md:text-2xl"
+                  animate={{ opacity: [0, 1, 1, 0] }}
+                  transition={{ duration: 5, times: [0, 0.2, 0.8, 1] }}
+                >
+                  "Code is poetry written in logic"
+                </motion.p>
+              </motion.div>
+
+              <motion.div
+                className="text-green-500/60 font-mono text-sm space-y-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2 }}
+              >
+                <div>→ Building scalable systems...</div>
+                <div>→ Solving complex problems...</div>
+                <div>→ One commit at a time...</div>
+              </motion.div>
+
+              <motion.div
+                className="text-green-400 font-mono text-xs"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1] }}
+                transition={{ delay: 4 }}
+              >
+                Press ESC or wait to exit
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -227,7 +315,7 @@ export default function Terminal() {
                   caretColor: "#00f0ff",
                 }}
                 placeholder="Type a command..."
-                autoFocus
+                autoFocus={false}
                 autoComplete="off"
                 spellCheck={false}
               />
