@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import emailjs from "@emailjs/browser";
 import SectionWrapper from "./SectionWrapper";
 import MagneticButton from "./MagneticButton";
 import { personalInfo } from "@/data/portfolio";
@@ -38,13 +39,24 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // TODO: Replace with actual API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    fireConfetti();
-    toast.success("Message sent successfully! I'll get back to you soon.", TOAST_STYLE);
-    setFormData(INITIAL_FORM);
-    setIsSubmitting(false);
+      if (!response.ok) throw new Error('Failed to send');
+
+      fireConfetti();
+      toast.success("Message sent successfully! I'll get back to you soon.", TOAST_STYLE);
+      setFormData(INITIAL_FORM);
+    } catch (error) {
+      console.error('Send error:', error);
+      toast.error("Failed to send message. Please try emailing directly.", TOAST_STYLE);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const copyEmail = () => {
