@@ -25,13 +25,19 @@ export default function Navbar() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
+        // Find the entry with the highest intersection ratio
+        const visibleEntries = entries.filter(entry => entry.isIntersecting);
+        if (visibleEntries.length > 0) {
+          const mostVisible = visibleEntries.reduce((prev, current) => 
+            current.intersectionRatio > prev.intersectionRatio ? current : prev
+          );
+          setActiveSection(mostVisible.target.id);
+        }
       },
-      { rootMargin: "-100px 0px -66% 0px", threshold: 0 },
+      { 
+        rootMargin: "-20% 0px -50% 0px",
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+      },
     );
 
     navLinks.forEach(({ href }) => {

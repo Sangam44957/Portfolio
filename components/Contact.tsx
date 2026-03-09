@@ -11,7 +11,7 @@ import { useConfetti } from "./Confetti";
 import toast from "react-hot-toast";
 import {
   FiMail, FiMapPin, FiPhone, FiSend, FiCopy, FiCheck,
-  FiGithub, FiLinkedin, FiTwitter, FiInstagram,
+  FiGithub, FiLinkedin, FiTwitter, FiInstagram, FiMessageCircle,
 } from "react-icons/fi";
 
 const SOCIALS = [
@@ -131,6 +131,22 @@ export default function Contact() {
               </div>
             </motion.a>
 
+            <motion.a
+              href={`https://wa.me/${personalInfo.whatsapp.replace(/[^0-9]/g, '')}?text=Hi%20Sangam!%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass rounded-xl p-4 flex items-center gap-4 group hover:border-nexus-green/20 transition-all block"
+              whileHover={{ x: 5 }}
+            >
+              <div className="w-10 h-10 rounded-lg bg-nexus-green/10 flex items-center justify-center">
+                <FiMessageCircle className="w-5 h-5 text-nexus-green" />
+              </div>
+              <div>
+                <div className="text-xs text-nexus-muted font-mono mb-0.5">WHATSAPP</div>
+                <div className="text-sm text-nexus-text">Chat on WhatsApp</div>
+              </div>
+            </motion.a>
+
             <motion.div
               className="glass rounded-xl p-4 flex items-center gap-4 group hover:border-nexus-pink/20 transition-all"
               whileHover={{ x: 5 }}
@@ -183,7 +199,7 @@ export default function Contact() {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-nexus-green" />
             </span>
             <span className="text-sm text-nexus-green font-mono">
-              Currently available for freelance &amp; full-time opportunities
+              Currently available for full-time opportunities
             </span>
           </motion.div>
         </motion.div>

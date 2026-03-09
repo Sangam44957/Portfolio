@@ -63,6 +63,7 @@ export interface Certification {
   issuer: string;
   date: string;
   verifyUrl: string;
+  techLearned?: string[];
 }
 
 export interface Achievement {
@@ -70,6 +71,7 @@ export interface Achievement {
   description: string;
   date: string;
   icon: string;
+  link?: string;
 }
 
 export interface Testimonial {
@@ -98,6 +100,7 @@ export const personalInfo = {
   lastName: "Mehta",
   email: "sangammehta44@gmail.com",
   phone: "+91 7015052100",
+  whatsapp: "+917015052100",
   location: "Phagwara, Punjab",
   tagline:
     "I craft robust backend systems and elegant APIs that scale — turning complex problems into simple, reliable solutions.",
@@ -110,6 +113,9 @@ export const personalInfo = {
     linkedin: "https://linkedin.com/in/mehtasangam77",
     twitter: "https://x.com/Sangam6931",
     instagram: "https://www.instagram.com/sangam.mehta.104/",
+    leetcode: "https://leetcode.com/u/SangamMehta/",
+    hackerrank: "https://www.hackerrank.com/profile/sangammehta44",
+    geeksforgeeks: "https://www.geeksforgeeks.org/profile/sangammxm4nh",
   },
 } as const;
 
@@ -285,13 +291,15 @@ export const certifications: Certification[] = [
     name: "Introduction to HTML, CSS & JavaScript",
     issuer: "IBM & Coursera",
     date: "Nov 2025",
-    verifyUrl: "#",
+    verifyUrl: "https://www.coursera.org/account/accomplishments/verify/YOUR_CERT_ID",
+    techLearned: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
   },
   {
     name: "Cloud Computing",
     issuer: "NPTEL",
     date: "July 2025",
-    verifyUrl: "#",
+    verifyUrl: "https://nptel.ac.in/noc/YOUR_CERT_ID",
+    techLearned: ["AWS", "Cloud Architecture", "Virtualization", "Docker"],
   },
 ];
 
@@ -305,12 +313,14 @@ export const achievements: Achievement[] = [
     description: "Achieved 5-Star rating in C++ on HackerRank, demonstrating strong language proficiency",
     date: "Since Jan 2026",
     icon: "⭐",
+    link: "https://www.hackerrank.com/profile/sangammehta44",
   },
   {
     title: "250+ DSA Problems Solved",
     description: "Solved 250+ Data Structures & Algorithms problems across LeetCode & GeeksforGeeks",
     date: "Since Jan 2026",
     icon: "🏆",
+    link: "https://leetcode.com/u/SangamMehta/",
   },
 ];
 
@@ -508,8 +518,11 @@ Farmer Support Platform with real-time data
 🏆 Achievements:
   ⭐ 5-Star C++ Rating on HackerRank
      Since Jan 2026
+     Link: https://www.hackerrank.com/profile/sangammehta44
   
   🏆 250+ DSA Problems Solved
      LeetCode & GeeksforGeeks | Since Jan 2026
+     LeetCode: https://leetcode.com/u/SangamMehta/
+     GFG: https://www.geeksforgeeks.org/profile/sangammxm4nh
 `,
 };

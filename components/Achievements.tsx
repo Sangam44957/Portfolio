@@ -5,6 +5,8 @@ import { motion, useInView } from "framer-motion";
 import SectionWrapper from "./SectionWrapper";
 import { achievements } from "@/data/portfolio";
 
+import { FiExternalLink } from "react-icons/fi";
+
 export default function Achievements() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
@@ -37,8 +39,21 @@ export default function Achievements() {
               <p className="text-sm text-nexus-muted mb-3">
                 {achievement.description}
               </p>
-              <div className="inline-block px-3 py-1 rounded-full bg-nexus-accent/10 text-nexus-accent text-xs font-mono">
-                {achievement.date}
+              <div className="flex items-center gap-3">
+                <div className="inline-block px-3 py-1 rounded-full bg-nexus-accent/10 text-nexus-accent text-xs font-mono">
+                  {achievement.date}
+                </div>
+                {achievement.link && (
+                  <a
+                    href={achievement.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-nexus-accent hover:text-nexus-accentAlt transition-colors"
+                  >
+                    <FiExternalLink className="w-3 h-3" />
+                    View Profile
+                  </a>
+                )}
               </div>
             </div>
           </motion.div>
