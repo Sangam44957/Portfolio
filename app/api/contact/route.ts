@@ -40,7 +40,9 @@ export async function POST(request: NextRequest) {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to send email');
+      const errorBody = await response.text();
+      console.error('Brevo API error:', response.status, errorBody);
+      throw new Error(`Brevo error: ${response.status} - ${errorBody}`);
     }
 
     return NextResponse.json({ success: true });
