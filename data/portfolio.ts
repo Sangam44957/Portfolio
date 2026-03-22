@@ -41,10 +41,11 @@ export interface Project {
   techStack: string[];
   liveUrl: string;
   githubUrl: string;
-  category: "fullstack" | "ai" | "backend" | "mobile";
+  category: "fullstack" | "ai" | "backend" | "mobile" | "3d";
   color: string;
   year: string;
   featured: boolean;
+  image?: string;
 }
 
 export interface Experience {
@@ -139,7 +140,7 @@ export const navLinks: NavLink[] = [
    ──────────────────────────────────── */
 
 export const stats: Stat[] = [
-  { label: "Projects Completed", value: 4, suffix: "+" },
+  { label: "Projects Completed", value: 5, suffix: "+" },
   { label: "DSA Problems", value: 250, suffix: "+" },
   { label: "HackerRank Rating", value: 5, suffix: "⭐" },
   { label: "CGPA", value: 7.71, suffix: "/10" },
@@ -153,7 +154,7 @@ export const skills: Skill[] = [
   { name: "TypeScript", icon: SiTypescript, color: "#3178C6", level: 90, category: "languages" },
   { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", level: 95, category: "languages" },
   { name: "Python", icon: SiPython, color: "#3776AB", level: 70, category: "languages" },
-  { name: "C++", icon: SiCplusplus, color: "#00599C", level: 65, category: "languages" },
+  { name: "C++", icon: SiCplusplus, color: "#00599C", level: 85, category: "languages" },
   { name: "React", icon: SiReact, color: "#61DAFB", level: 88, category: "frontend" },
   { name: "Next.js", icon: SiNextdotjs, color: "#ffffff", level: 85, category: "frontend" },
   { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", level: 90, category: "frontend" },
@@ -180,6 +181,20 @@ export const skills: Skill[] = [
 
 export const projects: Project[] = [
   {
+    id: "codroom",
+    title: "CodRoom",
+    description:
+      "Real-time technical interview platform where interviewers and candidates collaborate in a live coding environment. Uses WebSockets for instant code sync and AI to evaluate code and generate hiring reports.",
+    techStack: ["Next.js", "Node.js", "Express.js", "WebSockets", "PostgreSQL", "JWT", "AI APIs"],
+    liveUrl: "https://github.com/Sangam44957/CodRoom",
+    githubUrl: "https://github.com/Sangam44957/CodRoom",
+    category: "fullstack",
+    color: "#00f5a0",
+    year: "2025",
+    featured: true,
+    image: "/CodRoom.png",
+  },
+  {
     id: "focusflow",
     title: "FocusFlow",
     description:
@@ -191,6 +206,7 @@ export const projects: Project[] = [
     color: "#00f0ff",
     year: "Oct 2025 – Dec 2025",
     featured: true,
+    image: "/Focusflow.png",
   },
   {
     id: "ai-fashion-analyzer",
@@ -204,6 +220,7 @@ export const projects: Project[] = [
     color: "#7b61ff",
     year: "Mar 2025 – Apr 2025",
     featured: true,
+    image: "/Ai analyzer.png",
   },
   {
     id: "agroinnovate",
@@ -217,6 +234,7 @@ export const projects: Project[] = [
     color: "#ff006e",
     year: "Feb 2025 – Mar 2025",
     featured: true,
+    image: "/Aggroinnovate.png",
   },
   {
     id: "blender-animation",
@@ -226,10 +244,11 @@ export const projects: Project[] = [
     techStack: ["Blender", "3D Animation", "Keyframe Animation", "Eevee/Cycles"],
     liveUrl: "https://drive.google.com/drive/folders/10EGZdVVf8ZKDKtnZT3cnXHma48o0Pl03",
     githubUrl: "https://github.com/Sangam44957/stylized-character-walk-animation-blender",
-    category: "fullstack",
+    category: "3d",
     color: "#ff8c00",
     year: "2025",
     featured: false,
+    image: "/Stylished Character.png",
   },
 ];
 
@@ -300,6 +319,13 @@ export const certifications: Certification[] = [
     date: "July 2025",
     verifyUrl: "https://archive.nptel.ac.in/content/noc/NOC25/SEM2/Ecertificates/106/noc25-cs107/Course/NPTEL25CS107S135870001910815629.pdf",
     techLearned: ["AWS", "Cloud Architecture", "Virtualization", "Docker"],
+  },
+  {
+    name: "Mastering DSA with C++",
+    issuer: "Fifth Force (Industry Partner: Utopia Desk)",
+    date: "Jun 2025 – Jul 2025",
+    verifyUrl: "https://drive.google.com/file/d/1kcilnbsEcfI5OMDWE70_Q59fIjBpbEZK/view?usp=sharing",
+    techLearned: ["C++", "Data Structures", "Algorithms", "Dynamic Programming", "Graphs"],
   },
 ];
 
@@ -391,9 +417,10 @@ Currently based in Phagwara, Punjab 📍
   [1] FocusFlow — Task Management SaaS
   [2] AI Fashion Analyzer — Backend API
   [3] AgroInnovate — Farmer Support Platform
-  [4] Stylized Character Walk Animation — Blender
+  [4] CodRoom — Real-Time Interview Platform
+  [5] Stylized Character Walk Animation — Blender
 
-Type a number (1-4) to explore.
+Type a number (1-5) to explore.
 `,
   "1": `
 📂 FocusFlow
@@ -448,6 +475,24 @@ Farmer Support Platform with real-time data
   Code: https://github.com/Sangam44957/AgroInnovate-1
 `,
   "4": `
+📂 CodRoom
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Real-Time Technical Interview Platform
+
+🔧 Tech Stack:
+  → Next.js, Node.js, Express.js
+  → WebSockets, PostgreSQL, JWT, AI APIs
+
+✨ Features:
+  → Live collaborative coding environment
+  → Instant code sync via WebSockets
+  → AI-based code evaluation & hiring reports
+  → Scalable multi-session architecture
+
+🔗 Links:
+  Code: https://github.com/Sangam44957/CodRoom
+`,
+  "5": `
 📂 Stylized Character Walk Animation
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 3D character animation in Blender
@@ -502,11 +547,11 @@ Farmer Support Platform with real-time data
   stats: `
 📊 Quick Stats Overview
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🎯 Projects Completed      → 4+
+  🎯 Projects Completed      → 5+
   💻 DSA Problems Solved     → 250+
   ⭐ HackerRank C++ Rating   → 5-Star
   🎓 CGPA                    → 7.71/10
-  📜 Certifications          → 2
+  📜 Certifications          → 3
   🏆 Achievements            → 2
   💼 Work Experience         → 2 roles
   🌐 Tech Stack              → 20+ technologies
@@ -528,7 +573,10 @@ Farmer Support Platform with real-time data
   [2] Cloud Computing
       NPTEL | July 2025
 
-Type a number (1-2) to view certificate.
+  [3] Mastering DSA with C++
+      Fifth Force (Utopia Desk) | Jun–Jul 2025
+
+Type a number (1-3) to view certificate.
 `,
   "cert-1": `
 📜 Introduction to HTML, CSS & JavaScript
@@ -555,6 +603,20 @@ Date: July 2025
 
 🔗 Verify:
   https://archive.nptel.ac.in/content/noc/NOC25/SEM2/Ecertificates/106/noc25-cs107/Course/NPTEL25CS107S135870001910815629.pdf
+`,
+  "cert-3": `
+📜 Mastering DSA with C++
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Issued by: Fifth Force (Industry Partner: Utopia Desk)
+Date: Jun 2025 – Jul 2025
+
+🔧 Tech Learned:
+  → C++, Data Structures & Algorithms
+  → Trees, Graphs, Dynamic Programming
+  → Time/Space Complexity Optimization
+
+🔗 Verify:
+  https://drive.google.com/file/d/1kcilnbsEcfI5OMDWE70_Q59fIjBpbEZK/view?usp=sharing
 `,
   achievements: `
 🏆 Achievements:

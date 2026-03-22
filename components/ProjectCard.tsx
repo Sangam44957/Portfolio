@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { FiExternalLink, FiGithub, FiArrowUpRight } from "react-icons/fi";
@@ -11,6 +12,7 @@ const CATEGORY_EMOJI: Record<string, string> = {
   ai: "🧠",
   backend: "💻",
   mobile: "📱",
+  "3d": "🎨",
 };
 
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -62,7 +64,16 @@ export default function ProjectCard({ project, index }: { project: Project; inde
             style={{ background: `linear-gradient(135deg, ${project.color}20, ${project.color}05)` }}
           >
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-8xl opacity-20">{CATEGORY_EMOJI[project.category] ?? "🚀"}</span>
+              {project.image ? (
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <span className="text-8xl opacity-20">{CATEGORY_EMOJI[project.category] ?? "🚀"}</span>
+              )}
             </div>
           </div>
 

@@ -90,20 +90,6 @@ export default function Hero() {
         className="relative z-10 max-w-5xl mx-auto px-6 text-center"
         style={{ opacity, y, scale }}
       >
-        {/* Status Badge */}
-        <motion.div
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-nexus-green opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-nexus-green" />
-          </span>
-          <span className="text-sm font-mono text-nexus-muted">Available for opportunities</span>
-        </motion.div>
-
         {/* Greeting */}
         <motion.div
           className="mb-4"
