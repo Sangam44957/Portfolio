@@ -186,7 +186,7 @@ export const projects: Project[] = [
     description:
       "Real-time technical interview platform where interviewers and candidates collaborate in a live coding environment. Uses WebSockets for instant code sync and AI to evaluate code and generate hiring reports.",
     techStack: ["Next.js", "Node.js", "Express.js", "WebSockets", "PostgreSQL", "JWT", "AI APIs"],
-    liveUrl: "https://github.com/Sangam44957/CodRoom",
+    liveUrl: "https://codroom-pink.vercel.app/",
     githubUrl: "https://github.com/Sangam44957/CodRoom",
     category: "fullstack",
     color: "#00f5a0",
